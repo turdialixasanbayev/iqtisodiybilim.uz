@@ -1,0 +1,224 @@
+/* ================================
+   PROFILE — ULTRA DASHBOARD
+================================ */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: calc(100vh - 120px);
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, .08), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, .08), transparent 40%),
+        #f8fafc;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.profile-sidebar {
+    background:
+        linear-gradient(180deg, #020617, #0f172a);
+    padding: 36px 24px;
+    color: #e5e7eb;
+    box-shadow: 8px 0 40px rgba(2, 6, 23, .6);
+    position: relative;
+}
+
+/* subtle glow */
+.profile-sidebar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(59, 130, 246, .12), transparent 60%);
+    pointer-events: none;
+}
+
+/* USER BOX */
+.user-box {
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .04);
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
+    margin-bottom: 40px;
+}
+
+.user-box img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    background:
+        linear-gradient(#020617, #020617) padding-box,
+        linear-gradient(135deg, #22c55e, #2563eb) border-box;
+    margin-bottom: 14px;
+}
+
+.user-box h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.user-box p {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* STATUS */
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .4px;
+}
+
+.status.active {
+    background: rgba(34, 197, 94, .15);
+    color: #22c55e;
+}
+
+.status.inactive {
+    background: rgba(239, 68, 68, .15);
+    color: #ef4444;
+}
+
+/* ================================
+   SIDEBAR MENU
+================================ */
+
+.profile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.menu-link {
+    position: relative;
+    padding: 14px 18px;
+    border-radius: 14px;
+    color: #e5e7eb;
+    font-size: 14px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, .03);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
+    transition: all .35s ease;
+}
+
+.menu-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 0%;
+    background: linear-gradient(180deg, #2563eb, #22c55e);
+    border-radius: 4px;
+    transform: translateY(-50%);
+    transition: height .35s ease;
+}
+
+.menu-link:hover {
+    background: rgba(255, 255, 255, .07);
+    transform: translateX(6px);
+}
+
+.menu-link:hover::before {
+    height: 60%;
+}
+
+/* SPECIAL ACTIONS */
+.menu-link.warning {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: #1f2937;
+    font-weight: 800;
+}
+
+.menu-link.danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    font-weight: 800;
+}
+
+.menu-link.logout {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    font-weight: 800;
+}
+
+/* ================================
+   MAIN CONTENT
+================================ */
+
+.profile-content {
+    padding: 60px 70px;
+}
+
+.profile-content h1 {
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #0f172a, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* INFO GRID */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.info-card {
+    position: relative;
+    background: white;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow:
+        0 20px 40px rgba(15, 23, 42, .12),
+        inset 0 0 0 1px rgba(15, 23, 42, .05);
+    transition: all .4s ease;
+}
+
+.info-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at top right, rgba(37, 99, 235, .12), transparent 60%);
+    opacity: 0;
+    transition: opacity .4s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-6px);
+}
+
+.info-card:hover::after {
+    opacity: 1;
+}
+
+.info-card h4 {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #64748b;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.info-card p {
+    font-size: 17px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.6;
+}

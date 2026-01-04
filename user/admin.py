@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, EmailOTP
 from django.contrib.auth.models import Group
 
 admin.site.site_header = "iqtisodiybilim.uz Admin Dashboard"
@@ -59,3 +59,4 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.unregister(Group)
+admin.site.register(EmailOTP)

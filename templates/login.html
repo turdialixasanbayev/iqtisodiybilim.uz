@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Login | iqtisodiybilim.uz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Welcome Back</h1>
+        <p class="auth-subtitle">Login to your account and continue learning economics smartly</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="email" name="email" placeholder="Email address" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="form-row remember-me-row">
+                <label>
+                    <input type="checkbox" name="remember_me">
+                    Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <p class="auth-footer">
+            Don't have a profile yet? <a href="{% url 'register' %}">Create an account</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

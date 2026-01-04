@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register | iqtisodiybilim.uz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Create Account</h1>
+        <p class="auth-subtitle">Join iqtisodiybilim.uz and start learning economics smartly</p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-row name-row">
+                <input type="text" name="first_name" placeholder="First name">
+                <input type="text" name="last_name" placeholder="Last name">
+            </div>
+
+            <input type="email" name="email" placeholder="Email address" required>
+
+            <textarea name="bio" placeholder="Short bio (optional)"></textarea>
+
+            <label class="file-upload">
+                <input type="file" name="profile_image">
+                Upload profile image
+            </label>
+
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="repeat_password" placeholder="Repeat password" required>
+
+            <div class="form-row remember-me-row">
+                <label><input type="checkbox" name="remember_me">
+                    Remember me
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary">Create account</button>
+        </form>
+
+        <p class="auth-footer">
+            Already have a profile? <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

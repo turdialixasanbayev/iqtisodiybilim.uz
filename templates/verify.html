@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Verify Email | iqtisodiybilim.uz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/verify.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="verify-wrapper">
+    <div class="verify-card">
+        <h1>Email Verification</h1>
+        <p>We sent a verification code to your email address.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="code" placeholder="Enter verification code" required>
+            <button type="submit" class="btn-primary">Verify</button>
+        </form>
+
+        <form method="post" action="{% url 'resend-otp' %}" style="margin-top: 15px;">
+            {% csrf_token %}
+            <button type="submit" class="link-btn">
+                Didn't receive the code? Resend
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}

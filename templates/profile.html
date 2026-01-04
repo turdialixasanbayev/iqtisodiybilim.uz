@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Profile | iqtisodiybilim.uz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="profile-sidebar">
+        <div class="user-box">
+            <img src="{{ request.user.profile_image.url }}" alt="Profile image">
+            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+            <p>{{ request.user.email }}</p>
+
+            {% if request.user.is_active %}
+            <span class="status active">Active</span>
+            {% else %}
+            <span class="status inactive">Inactive</span>
+            {% endif %}
+        </div>
+
+        <nav class="profile-menu">
+            <a href="#" class="menu-link">Update Profile</a>
+            <a href="#" class="menu-link">Change Password</a>
+            <a href="#" class="menu-link danger">Delete Account</a>
+            <a href="/logout/" class="menu-link logout">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="profile-content">
+        <h1>Account Overview</h1>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h4>First Name</h4>
+                <p>{{ request.user.first_name|default:"—" }}</p>
+            </div>
+
+            <div class="info-card">
+                <h4>Last Name</h4>
+                <p>{{ request.user.last_name|default:"—" }}</p>
+            </div>
+
+            <div class="info-card">
+                <h4>Email</h4>
+                <p>{{ request.user.email }}</p>
+            </div>
+
+            <div class="info-card">
+                <h4>Bio</h4>
+                <p>{{ request.user.bio|default:"No bio added yet." }}</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
