@@ -1,0 +1,232 @@
+/* ==================================================
+   VARIABLES
+================================================== */
+:root {
+    --primary: #2563eb;
+    /* Brand color */
+    --primary-light: #3b82f6;
+    /* Hover / accent */
+    --primary-dark: #1e40af;
+    /* Darker hover */
+    --dark: #0f172a;
+    /* Text / footer bg */
+    --gray: #6b7280;
+    /* Secondary text */
+    --light-bg: #f9fafb;
+    /* Page background */
+    --white: #ffffff;
+    /* For buttons / cards */
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+/* ==================================================
+   GLOBAL STYLES
+================================================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--light-bg);
+    color: var(--dark);
+    line-height: 1.7;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ==================================================
+   NAVBAR
+================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 80px;
+    background: var(--white);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all var(--transition-speed) ease;
+}
+
+.nav-left .logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--dark);
+}
+
+.nav-left .logo span {
+    color: var(--primary);
+}
+
+.nav-center {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: var(--dark);
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    transition: width var(--transition-speed) ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+/* Filled Button */
+.nav-right .btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    padding: 12px 26px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+    transition: all var(--transition-speed) ease;
+}
+
+.nav-right .btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* Outline Button */
+.nav-right .btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 12px 26px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed) ease;
+}
+
+.nav-right .btn-outline:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+}
+
+/* ==================================================
+   FOOTER
+================================================== */
+.footer {
+    background: var(--dark);
+    color: #cbd5f5;
+    padding: 80px 60px;
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+}
+
+.footer-logo span {
+    color: var(--primary);
+}
+
+.footer-text {
+    margin-top: 16px;
+    font-size: 15px;
+    color: #a1a8c0;
+    line-height: 1.7;
+}
+
+.footer-col h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 18px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col li {
+    margin-bottom: 12px;
+}
+
+.footer-col a {
+    font-size: 14px;
+    color: #cbd5f5;
+    transition: color var(--transition-speed) ease;
+}
+
+.footer-col a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 60px;
+    text-align: center;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* ==================================================
+   BUTTONS & LINKS (GENERAL)
+================================================== */
+.btn-large {
+    padding: 16px 32px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-large:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+}

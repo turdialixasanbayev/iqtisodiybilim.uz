@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Category | Finance{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- CATEGORY HERO -->
+<section class="category-hero">
+    <div class="category-container">
+        <h1 class="category-title">Category: Finance</h1>
+        <p class="category-desc">
+            Explore articles under the <strong>Finance</strong> category. Stay informed with the latest insights and
+            tips.
+        </p>
+    </div>
+</section>
+
+<!-- CATEGORY ARTICLES -->
+<section class="section category-articles">
+    <div class="section-header">
+        <h2 class="section-title">Articles in Finance</h2>
+    </div>
+
+    <div class="article-grid">
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/sample.jpg' %}" alt="Article Image">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Finance</span>
+                <h3 class="article-title">Budgeting 101</h3>
+                <p class="article-desc">How to manage your personal finances effectively and plan for the future.</p>
+                <div class="article-meta">Published: Jan 01, 2026</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/sample2.jpg' %}" alt="Article Image">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Finance</span>
+                <h3 class="article-title">Investing Basics</h3>
+                <p class="article-desc">Learn how to start investing in stocks, bonds, and other financial instruments.
+                </p>
+                <div class="article-meta">Published: Jan 02, 2026</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/sample3.jpg' %}" alt="Article Image">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Finance</span>
+                <h3 class="article-title">Saving Strategies</h3>
+                <p class="article-desc">Top tips and methods to save money efficiently for short-term and long-term
+                    goals.</p>
+                <div class="article-meta">Published: Jan 03, 2026</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- LATEST ARTICLES -->
+<section class="section latest">
+    <div class="section-header">
+        <h2 class="section-title">Latest Articles</h2>
+    </div>
+
+    <div class="article-grid">
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/latest1.jpg' %}" alt="Latest Article">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Economics</span>
+                <h3 class="article-title">Inflation Explained</h3>
+                <p class="article-desc">Understand what causes inflation and its effects on the economy and your wallet.
+                </p>
+                <div class="article-meta">Published: Jan 03, 2026</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/latest2.jpg' %}" alt="Latest Article">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Finance</span>
+                <h3 class="article-title">Understanding Taxes</h3>
+                <p class="article-desc">A clear guide on taxes, deductions, and how to optimize your financial planning.
+                </p>
+                <div class="article-meta">Published: Jan 02, 2026</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/latest3.jpg' %}" alt="Latest Article">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Business</span>
+                <h3 class="article-title">Market Trends 2026</h3>
+                <p class="article-desc">An overview of the latest business and economic trends for the upcoming year.
+                </p>
+                <div class="article-meta">Published: Jan 01, 2026</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- POPULAR ARTICLES -->
+<section class="section popular">
+    <div class="section-header">
+        <h2 class="section-title">Popular Articles</h2>
+    </div>
+
+    <div class="article-list">
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/popular1.jpg' %}" alt="Popular Article">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Business</span>
+                <h3 class="article-title">Stock Market Insights</h3>
+                <p class="article-desc">Learn the essentials of investing in the stock market and strategies for
+                    success.</p>
+                <div class="article-meta">Published: Dec 30, 2025</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/popular2.jpg' %}" alt="Popular Article">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Finance</span>
+                <h3 class="article-title">Retirement Planning</h3>
+                <p class="article-desc">Step-by-step guide to planning your retirement finances effectively.</p>
+                <div class="article-meta">Published: Dec 29, 2025</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+
+        <article class="article-card hover-rise">
+            <div class="article-image">
+                <img src="{% static 'img/popular3.jpg' %}" alt="Popular Article">
+            </div>
+            <div class="article-content">
+                <span class="article-category">Economics</span>
+                <h3 class="article-title">Economic Indicators</h3>
+                <p class="article-desc">Learn how key economic indicators can impact your financial decisions.</p>
+                <div class="article-meta">Published: Dec 28, 2025</div>
+                <a href="#" class="btn-outline">Read more →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+{% endblock %}

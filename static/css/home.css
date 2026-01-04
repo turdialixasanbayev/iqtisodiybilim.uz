@@ -1,0 +1,301 @@
+/* ==================================================
+   HOME PAGE STYLES
+================================================== */
+
+/* ================== HERO SECTION ================== */
+.hero {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    text-align: center;
+    padding: 160px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 1;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 56px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-btn {
+    font-size: 18px;
+    padding: 16px 36px;
+    background: #fff;
+    color: #2563eb;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    background: #e0e7ff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+/* ================== SECTION HEADERS ================== */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #2563eb;
+    margin: 8px auto 0;
+    border-radius: 2px;
+}
+
+/* ================== ARTICLE CARDS GRID ================== */
+.article-grid,
+.article-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* ================== ARTICLE CARD ================== */
+.article-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+
+/* Article Image */
+.article-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.article-card:hover .article-image img {
+    transform: scale(1.05);
+}
+
+/* Article Content */
+.article-content {
+    padding: 20px 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Category Badge */
+.article-category {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Title */
+.article-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+/* Description */
+.article-desc {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: auto;
+}
+
+/* Meta (Date) */
+.article-meta {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+/* Buttons inside card */
+.article-card .btn-outline {
+    margin-top: 15px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: #2563eb;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.article-card .btn-outline:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* ================== LATEST VS POPULAR CARDS ================== */
+/* Latest articles cards have subtle borders */
+.section.latest .article-card {
+    border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+/* Popular articles cards have gradient background */
+.section.popular .article-card {
+    background: linear-gradient(135deg, #ffffff, #e0e7ff);
+}
+
+/* ================== HOVER RISE EFFECT ================== */
+.hover-rise {
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+/* ================== RESPONSIVE (optional, can skip) ================== */
+/* Not included as requested */
+
+/* ==================================================
+   CATEGORIES & TAGS BLOCK
+================================================== */
+
+.categories-tags {
+    background: #f9fafb;
+    /* bo‘sh fon, latest va populardan farq qiladi */
+    padding: 60px 50px;
+    border-radius: 16px;
+    margin: 50px 0;
+}
+
+.categories-tags .section-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #1e3a8a;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.categories-tags-container {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Categories & Tags box */
+.categories-list,
+.tags-list {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    min-width: 250px;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.categories-list:hover,
+.tags-list:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.categories-list h3,
+.tags-list h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.categories-list ul,
+.tags-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories-list li,
+.tags-list li {
+    margin-bottom: 12px;
+}
+
+.categories-list a,
+.tags-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: #f1f5f9;
+    text-decoration: none;
+}
+
+.categories-list a:hover,
+.tags-list a:hover {
+    background: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.categories-list .count,
+.tags-list .count {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2563eb;
+    background: #e0e7ff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.categories-list a:hover .count,
+.tags-list a:hover .count {
+    background: white;
+    color: #2563eb;
+}

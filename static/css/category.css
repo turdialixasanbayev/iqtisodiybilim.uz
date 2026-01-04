@@ -1,0 +1,169 @@
+/* ==================================================
+   CATEGORY & ARTICLES - CLEAN PRO DESIGN
+================================================== */
+
+/* --- Category Hero --- */
+.category-hero {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(245, 158, 11, 0.1));
+    padding: 80px 60px;
+    text-align: center;
+    border-radius: 16px;
+    margin-bottom: 50px;
+}
+
+.category-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+
+.category-desc {
+    font-size: 18px;
+    color: #6b7280;
+    max-width: 700px;
+    margin: 0 auto 25px;
+}
+
+/* --- Section Headers --- */
+.section.latest .section-header,
+.section.popular .section-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section.latest .section-title,
+.section.popular .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* --- Article Grid & Cards --- */
+.article-grid,
+.article-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.article-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 45px rgba(37, 99, 235, 0.25);
+}
+
+/* --- Image --- */
+.article-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* --- Category Badge --- */
+.article-category {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    background: #2563eb;
+    padding: 5px 12px;
+    border-radius: 12px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    text-transform: uppercase;
+}
+
+/* --- Article Content --- */
+.article-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 12px;
+}
+
+.article-desc {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 16px;
+}
+
+.article-meta {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+/* --- Buttons --- */
+.btn-outline {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2563eb;
+    padding: 8px 18px;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: #2563eb;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* --- Popular Section Specific --- */
+.section.popular {
+    background: #f0f4f8; /* Latest artikladan farq */
+    padding: 80px 60px;
+    border-radius: 16px;
+}
+
+.section.popular .section-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #1e3a8a;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+}
+
+/* --- Gradient Overlay for Popular Cards --- */
+.article-list .article-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(59, 130, 246, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.article-list .article-card:hover::before {
+    top: -20%;
+    left: -20%;
+}

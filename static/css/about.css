@@ -1,0 +1,122 @@
+/* ==================================================
+   ABOUT PAGE DESIGN
+================================================== */
+
+/* HERO SECTION */
+.about-hero {
+    background: linear-gradient(135deg, #2563eb33, #fbbf24cc);
+    padding: 100px 60px;
+    text-align: center;
+    border-radius: 16px;
+    margin-bottom: 60px;
+}
+
+.about-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #0f172a;
+    margin-bottom: 20px;
+}
+
+.about-subtitle {
+    font-size: 18px;
+    color: #475569;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* SECTION HEADERS */
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e3a8a;
+    letter-spacing: 0.5px;
+}
+
+/* OUR STORY */
+.story-content {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #475569;
+    line-height: 1.8;
+    padding: 0 20px;
+}
+
+/* OUR TEAM */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.team-member {
+    background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+    border-radius: 16px;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.team-member img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #2563eb;
+}
+
+.team-member h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+}
+
+.team-member p {
+    font-size: 14px;
+    color: #475569;
+}
+
+/* OUR MISSION */
+.mission-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #475569;
+    line-height: 1.8;
+    padding: 0 20px;
+}
+
+.mission-content ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.mission-content ul li {
+    margin-bottom: 12px;
+}
+
+/* BUTTONS */
+.btn-large, .btn-outline {
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover, .btn-outline:hover {
+    transform: translateY(-2px);
+}

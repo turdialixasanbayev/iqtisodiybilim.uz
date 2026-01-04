@@ -1,0 +1,70 @@
+/* 404 page custom style */
+.error-404 {
+    text-align: center;
+    padding: 180px 40px;
+    background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+    /* yorqin gradient */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-404 h1 {
+    font-size: 140px;
+    font-weight: 900;
+    color: #2563eb;
+    /* primary color */
+    margin: 0;
+}
+
+.error-404 h2 {
+    font-size: 36px;
+    margin: 16px 0;
+    font-weight: 700;
+    color: #1e40af;
+}
+
+.error-404 p {
+    font-size: 18px;
+    color: #475569;
+    margin-bottom: 40px;
+}
+
+.error-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.error-actions .btn-large {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.error-actions .btn-large:hover {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+}
+
+.error-actions .btn-outline {
+    background: transparent;
+    border: 2px solid #2563eb;
+    color: #2563eb;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.error-actions .btn-outline:hover {
+    background: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+}

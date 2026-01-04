@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}About | iqtisodiybilim.uz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ABOUT HERO SECTION -->
+<section class="about-hero">
+    <div class="about-hero-container">
+        <h1 class="about-title">About iqtisodiybilim.uz</h1>
+        <p class="about-subtitle">
+            Our mission is to make economics, finance, and business concepts simple, practical, and easy to understand for everyone.
+        </p>
+    </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="section our-story">
+    <div class="section-header">
+        <h2 class="section-title">Our Story</h2>
+    </div>
+    <div class="story-content">
+        <p>
+            Founded in 2026, iqtisodiybilim.uz was created to provide high-quality, insightful content about economics, finance, and business in Uzbek language.
+            We believe that understanding economic concepts empowers individuals to make smarter decisions in life and work.
+        </p>
+        <p>
+            Our team of experts carefully researches and explains topics in a clear and approachable way, making learning enjoyable and accessible.
+        </p>
+    </div>
+</section>
+
+<!-- OUR TEAM -->
+<section class="section our-team">
+    <div class="section-header">
+        <h2 class="section-title">Meet Our Team</h2>
+    </div>
+    <div class="team-grid">
+        <div class="team-member">
+            <img src="{% static 'img/team/azizbek.jpg' %}" alt="Azizbek Akbaraliyev">
+            <h3>Azizbek Akbaraliyev</h3>
+            <p>Founder & Lead Writer</p>
+        </div>
+        <div class="team-member">
+            <img src="{% static 'img/team/shahnoza.jpg' %}" alt="Shahnoza">
+            <h3>Shahnoza</h3>
+            <p>Content Editor</p>
+        </div>
+        <div class="team-member">
+            <img src="{% static 'img/team/ilmurod.jpg' %}" alt="Ilmurod">
+            <h3>Ilmurod</h3>
+            <p>Research & Analytics</p>
+        </div>
+    </div>
+</section>
+
+<!-- OUR MISSION -->
+<section class="section our-mission">
+    <div class="section-header">
+        <h2 class="section-title">Our Mission</h2>
+    </div>
+    <div class="mission-content">
+        <ul>
+            <li>Provide clear, practical explanations of economics and finance topics.</li>
+            <li>Help readers make smarter personal and professional decisions.</li>
+            <li>Encourage critical thinking about economic issues in Uzbekistan and the world.</li>
+            <li>Create a trusted platform for learning and discussion.</li>
+        </ul>
+    </div>
+</section>
+
+{% endblock %}
