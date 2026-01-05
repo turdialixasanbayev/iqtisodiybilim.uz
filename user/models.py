@@ -7,8 +7,8 @@ from django.utils import timezone
 
 
 class CustomUser(AbstractUser):
-    groups = None
-    user_permissions = None
+    # groups = None
+    # user_permissions = None
     username = None
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
@@ -50,3 +50,16 @@ class EmailOTP(models.Model):
 
     def __str__(self):
         return self.user.email
+
+
+class Agent(models.Model):
+    full_name = models.CharField(max_length=200)
+    job = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='agents', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Agent'
+        verbose_name_plural = 'Agents'
+
+    def __str__(self):
+        return self.full_name

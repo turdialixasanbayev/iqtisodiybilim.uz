@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, EmailOTP
+from .models import CustomUser, EmailOTP, Agent
 from django.contrib.auth.models import Group
 
 admin.site.site_header = "iqtisodiybilim.uz Admin Dashboard"
@@ -22,7 +22,7 @@ class CustomUserAdmin(UserAdmin):
         'last_login'
     )
     ordering = ('email',)
-    filter_horizontal = ()
+    filter_horizontal = ('user_permissions', 'groups',)
     list_filter = ('is_active', 'is_superuser', 'is_staff')
     search_fields = ('first_name', 'last_name', 'email')
     fieldsets = (
@@ -42,6 +42,10 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('is_superuser', 'is_staff', 'is_active',),
             'classes': ('wide',),
         }),
+        ("User Permissions and Groups", {
+            'fields': ('groups', 'user_permissions',),
+            'classes': ('wide',),
+        }),
     )
     add_fieldsets = (
         ('Create Super User', {
@@ -56,7 +60,12 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('is_superuser', 'is_staff', 'is_active',),
             'classes': ('wide',),
         }),
+        ("User Permissions and Groups", {
+            'fields': ('groups', 'user_permissions',),
+            'classes': ('wide',),
+        }),
     )
 
-admin.site.unregister(Group)
+# admin.site.unregister(Group)
 admin.site.register(EmailOTP)
+admin.site.register(Agent)

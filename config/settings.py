@@ -35,7 +35,7 @@ AUTH_USER_MODEL = 'user.CustomUser'
 
 # Authentication redirects
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Application definition

@@ -98,7 +98,7 @@ class VerifyView(View):
         )
         del request.session['verify_user_id']
 
-        return redirect('profile')
+        return redirect('dashboard')
 
 class ProfileView(View):
     def get(self, request):
@@ -126,7 +126,7 @@ class LoginView(View):
 
         if user is not None:
             login(request, user)
-            return redirect('profile')
+            return redirect('dashboard')
         else:
             return redirect('login')
 
