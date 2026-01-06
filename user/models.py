@@ -7,12 +7,10 @@ from django.utils import timezone
 
 
 class CustomUser(AbstractUser):
-    # groups = None
-    # user_permissions = None
     username = None
+    email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    email = models.EmailField(unique=True)
     profile_image = models.ImageField(upload_to='profile_images', null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
 

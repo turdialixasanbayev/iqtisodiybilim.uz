@@ -4,121 +4,73 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}iqtisodiybilim.uz{% endblock %}</title>
 
-    <!-- Favicon -->
+    <title>{% block title %}iqtisodiybilim.uz{% endblock title %}</title>
+
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
-
-    <!-- Base CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <!-- Other CSS -->
-    {% block extra_css %}{% endblock %}
+
+    {% block extra_css %}{% endblock extra_css %}
+
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <!-- Left / Logo -->
-        <div class="nav-left">
-            <a href="/" class="logo">iqtisodiybilim<span>.uz</span></a>
+    <header class="header">
+
+        <nav class="nav-wrapper">
+
+            <a href="/" class="brand">
+                iqtisodiybilim<span>.uz</span>
+            </a>
+
+            <ul class="nav-list">
+                <li><a href="/" class="nav-item">Home</a></li>
+                <li><a href="/about/" class="nav-item">About</a></li>
+                <li><a href="/articles/" class="nav-item">Articles</a></li>
+                <li><a href="/contact/" class="nav-item">Contact</a></li>
+            </ul>
+
+            <div class="auth-buttons">
+
+                {% if user.is_authenticated %}
+                <a href="/dashboard/" class="btn btn--primary">Dashboard</a>
+                <a href="/logout/" class="btn btn--ghost">Logout</a>
+                {% else %}
+                <a href="/login/" class="btn btn--ghost">Login</a>
+                <a href="/register/" class="btn btn--primary">Get Started</a>
+                {% endif %}
+                
+            </div>
+
+        </nav>
+
+    </header>
+
+    <main class="content-area">
+
+        <div class="main-container">
+
+            {% block content %}
+
+            {% endblock content %}
+
         </div>
 
-        <!-- Center / Menu -->
-        <div class="nav-center">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/articles/" class="nav-link">Articles</a>
-            <a href="/category/" class="nav-link">Category</a>
-            <a href="/about/" class="nav-link">About</a>
-        </div>
-
-        <!-- Right / Auth buttons -->
-        <div class="nav-right">
-            {% if user.is_authenticated %}
-            <a href="/dashboard/" class="btn">Dashboard</a>
-            <a href="/logout/" class="btn-outline">Logout</a>
-            {% else %}
-            <a href="/login/" class="btn-outline">Login</a>
-            <a href="/register/" class="btn">Register</a>
-            {% endif %}
-        </div>
-    </nav>
-
-    <!-- Page content -->
-    <main class="page-wrapper">
-        {% block content %}
-        <!-- Individual page content goes here -->
-        {% endblock %}
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-inner">
 
-            <!-- Brand / About -->
-            <div class="footer-col">
-                <h3 class="footer-logo">
-                    iqtisodiy<span>bilim.uz</span>
-                </h3>
-                <p class="footer-text">
-                    iqtisodiybilim.uz is a comprehensive platform dedicated to explaining economics, finance, and
-                    business
-                    concepts
-                    in a clear, simple, and practical way. Our goal is to provide readers with insightful articles,
-                    tutorials,
-                    and analysis that help you understand complex economic ideas, stay informed about financial trends,
-                    and make smarter decisions in your personal and professional life. Whether you are a student,
-                    professional,
-                    or just curious about how the economy works, our platform offers valuable knowledge in an
-                    easy-to-digest
-                    format.
-                </p>
-            </div>
+        <div class="footer-container">
 
-            <!-- Pages -->
-            <div class="footer-col">
-                <h4>Pages</h4>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/articles/">Articles</a></li>
-                    <li><a href="/category/">Category</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </div>
-
-            <!-- Articles -->
-            <div class="footer-col">
-                <h4>Articles</h4>
-                <ul>
-                    <li><a href="/articles/what-is-inflation/">What Is Inflation?</a></li>
-                    <li><a href="/articles/supply-and-demand/">Supply and Demand</a></li>
-                    <li><a href="/articles/how-interest-rates-work/">How Interest Rates Work</a></li>
-                    <li><a href="/articles/what-is-inflation/">What Is Inflation?</a></li>
-                </ul>
-            </div>
-
-            <!-- Legal -->
-            <div class="footer-col">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                    <li><a href="#">Accessibility Statement</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <!-- Bottom -->
-        <div class="footer-bottom">
-            <p>
-                © {{ current_year }} iqtisodiybilim.uz · Azizbek Akbaraliyev
+            <p class="copyright">
+                &copy; {{ current_year }} <strong>iqtisodiybilim.uz</strong> · <span>Azizbek Akbaraliyev</span>
             </p>
+
         </div>
+
     </footer>
 
 </body>

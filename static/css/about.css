@@ -1,122 +1,120 @@
-/* ==================================================
-   ABOUT PAGE DESIGN
-================================================== */
+/* ===============================
+   ABOUT PAGE
+================================ */
 
-/* HERO SECTION */
+/* ---------- HERO ---------- */
 .about-hero {
-    background: linear-gradient(135deg, #2563eb33, #fbbf24cc);
-    padding: 100px 60px;
+    padding: 100px 24px;
+    margin-bottom: 60px;
     text-align: center;
     border-radius: 16px;
-    margin-bottom: 60px;
+
+    background: linear-gradient(135deg,
+            rgba(37, 99, 235, 0.2),
+            rgba(251, 191, 36, 0.8));
 }
 
 .about-title {
-    font-size: 48px;
+    font-size: clamp(36px, 6vw, 48px);
     font-weight: 900;
-    color: #0f172a;
     margin-bottom: 20px;
+    color: var(--dark);
 }
 
 .about-subtitle {
-    font-size: 18px;
-    color: #475569;
     max-width: 800px;
     margin: 0 auto;
+    font-size: 18px;
     line-height: 1.6;
+    color: var(--slate);
 }
 
-/* SECTION HEADERS */
+/* ---------- SECTION HEADER ---------- */
 .section-header {
     text-align: center;
     margin-bottom: 40px;
 }
 
 .section-title {
-    font-size: 32px;
+    font-size: clamp(26px, 4vw, 32px);
     font-weight: 700;
+    letter-spacing: .5px;
     color: #1e3a8a;
-    letter-spacing: 0.5px;
 }
 
-/* OUR STORY */
+/* ---------- STORY ---------- */
 .story-content {
     max-width: 900px;
     margin: 0 auto;
-    font-size: 16px;
-    color: #475569;
-    line-height: 1.8;
     padding: 0 20px;
+
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--slate);
 }
 
-/* OUR TEAM */
+/* ---------- TEAM ---------- */
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     padding: 0 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .team-member {
-    background: linear-gradient(135deg, #e0f2fe, #fef3c7);
-    border-radius: 16px;
-    overflow: hidden;
-    text-align: center;
     padding: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
+    text-align: center;
+    border-radius: 16px;
+
+    background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+
+    transition: var(--ease);
 }
 
 .team-member:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
 }
 
 .team-member img {
     width: 120px;
     height: 120px;
+    margin-bottom: 15px;
+
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #2563eb;
+    border: 3px solid var(--primary);
 }
 
 .team-member h3 {
+    margin-bottom: 6px;
     font-size: 20px;
     font-weight: 700;
     color: #1e3a8a;
-    margin-bottom: 6px;
 }
 
 .team-member p {
     font-size: 14px;
-    color: #475569;
+    color: var(--slate);
 }
 
-/* OUR MISSION */
+/* ---------- MISSION ---------- */
 .mission-content {
     max-width: 800px;
     margin: 0 auto;
-    font-size: 16px;
-    color: #475569;
-    line-height: 1.8;
     padding: 0 20px;
+
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--slate);
 }
 
 .mission-content ul {
-    list-style: disc;
     padding-left: 20px;
+    list-style: disc;
 }
 
-.mission-content ul li {
+.mission-content li {
     margin-bottom: 12px;
-}
-
-/* BUTTONS */
-.btn-large, .btn-outline {
-    transition: all 0.3s ease;
-}
-
-.btn-large:hover, .btn-outline:hover {
-    transform: translateY(-2px);
 }

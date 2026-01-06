@@ -4,5 +4,5 @@ from .views import CategoryPage
 
 
 urlpatterns = [
-    path('category/', CategoryPage.as_view(), name='category'),
+    path('categories/<slug:slug>/', CategoryPage.as_view(), name='categories'),
 ]

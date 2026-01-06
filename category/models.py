@@ -1,10 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
 
-
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    slug = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Category'
@@ -21,7 +20,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    slug = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Tag'

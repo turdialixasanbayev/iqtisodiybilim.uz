@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% load static %}
 
 {% block title %}Register | iqtisodiybilim.uz{% endblock %}
@@ -8,8 +9,16 @@
 {% endblock %}
 
 {% block content %}
+
 <section class="auth-wrapper">
     <div class="auth-card">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <h1>Create Account</h1>
         <p class="auth-subtitle">Join iqtisodiybilim.uz and start learning economics smartly</p>
 
@@ -21,7 +30,7 @@
                 <input type="text" name="last_name" placeholder="Last name">
             </div>
 
-            <input type="email" name="email" placeholder="Email address" required>
+            <input type="email" name="email" placeholder="Email address">
 
             <textarea name="bio" placeholder="Short bio (optional)"></textarea>
 
@@ -30,8 +39,8 @@
                 Upload profile image
             </label>
 
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="repeat_password" placeholder="Repeat password" required>
+            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="repeat_password" placeholder="Repeat password">
 
             <div class="form-row remember-me-row">
                 <label><input type="checkbox" name="remember_me">
@@ -47,4 +56,5 @@
         </p>
     </div>
 </section>
+
 {% endblock %}

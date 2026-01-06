@@ -1,16 +1,25 @@
 {% extends "base.html" %}
+
 {% load static %}
 
-{% block title %}My Profile | iqtisodiybilim.uz{% endblock %}
+{% block title %}Dashboard | iqtisodiybilim.uz{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <section class="profile-layout">
 
-    <!-- SIDEBAR -->
     <aside class="profile-sidebar">
         <div class="user-box">
             <img src="{{ request.user.profile_image.url }}" alt="Profile image">
@@ -26,13 +35,13 @@
 
         <nav class="profile-menu">
             <a href="#" class="menu-link">Update Profile</a>
+            <a href="#" class="menu-link">Change Email</a>
             <a href="#" class="menu-link">Change Password</a>
             <a href="#" class="menu-link danger">Delete Account</a>
             <a href="/logout/" class="menu-link logout">Logout</a>
         </nav>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <div class="profile-content">
         <h1>Account Overview</h1>
 
@@ -60,4 +69,5 @@
     </div>
 
 </section>
+
 {% endblock %}

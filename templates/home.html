@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Home | iqtisodiybilim.uz{% endblock %}
+{% block title %}Economics & Insights | iqtisodiybilim.uz{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -10,135 +10,92 @@
 
 {% block content %}
 
-<!-- HERO SECTION -->
-<section class="hero">
-    <div class="hero-container">
-        <h1 class="hero-title">Learn Economics the Smart Way</h1>
-        <p class="hero-subtitle">
-            Explore high-quality, practical articles about economics, finance, and business that make complex concepts
-            simple and easy to understand.
-        </p>
-        <a href="/articles/" class="btn-large hero-btn">Explore Articles</a>
+<section class="hero-block">
+    <div class="hero-inner">
+        <div class="hero-badge">Economics & Finance Hub</div>
+        <h1 class="hero-main-title">Decipher the <span>Economic</span> World With Us</h1>
+        <p class="hero-lead">High-quality analysis on finance, business, and global markets.</p>
+        <div class="hero-btns">
+            <a href="/articles/" class="btn btn--primary btn--xl">Explore Articles</a>
+        </div>
     </div>
 </section>
 
-<!-- CATEGORIES & TAGS -->
-<section class="section categories-tags">
-    <div class="section-header">
-        <h2 class="section-title">Categories & Tags</h2>
-    </div>
-
-    <div class="categories-tags-container">
-        <!-- Categories -->
-        <div class="categories-list">
-            <h3>Categories</h3>
-            <ul>
-                <li><a href="/category/finance/">Finance <span class="count">(12)</span></a></li>
-                <li><a href="/category/economics/">Economics <span class="count">(8)</span></a></li>
-                <li><a href="/category/business/">Business <span class="count">(15)</span></a></li>
-                <li><a href="/category/investing/">Investing <span class="count">(7)</span></a></li>
-            </ul>
-        </div>
-
-        <!-- Tags -->
+<div class="tags-container">
+    <div class="tags-inner">
+        <span class="tags-label">🔥 Trending:</span>
         <div class="tags-list">
-            <h3>Tags</h3>
-            <ul>
-                <li><a href="/tag/inflation/">Inflation <span class="count">(5)</span></a></li>
-                <li><a href="/tag/market/">Market <span class="count">(9)</span></a></li>
-                <li><a href="/tag/supply-demand/">Supply & Demand <span class="count">(4)</span></a></li>
-                <li><a href="/tag/interest/">Interest Rates <span class="count">(6)</span></a></li>
-            </ul>
+            {% for tag in tags %}
+            <a href="#" class="tag-link">#{{ tag.name }}</a>
+            {% endfor %}
         </div>
     </div>
-</section>
+</div>
 
-<!-- LATEST ARTICLES -->
-<section class="section latest">
-    <div class="section-header">
-        <h2 class="section-title">Latest Articles</h2>
+<section class="home-section">
+    <div class="section-top">
+        <h2 class="h2-title">Latest Publications</h2>
+        <a href="/articles/" class="view-more">All articles &rarr;</a>
     </div>
 
     <div class="article-grid">
-        <article class="article-card hover-rise">
-            <img src="{% static 'img/articles/inflation.jpg' %}" alt="Inflation">
-            <div class="article-category">Economics</div>
-            <div class="article-content">
-                <h3 class="article-title">What Is Inflation?</h3>
-                <p class="article-desc">Understand inflation, its causes, and its impact on everyday life and the
-                    economy.</p>
-                <div class="article-meta">Created: 2026-01-04</div>
-                <a href="/articles/what-is-inflation/" class="btn-outline">Read more →</a>
+        {% for i in latest %}
+        <article class="modern-card">
+            <div class="card-media">
+                <img src="{{ i.image.url }}" alt="{{ i.title }}">
+                <span class="card-label">{{ i.category.name }}</span>
+            </div>
+            <div class="card-content">
+                <div class="card-meta">
+                    <span class="meta-item">⏱ {{ i.reading_time }} min</span>
+                    <span class="meta-item rating">⭐ {{ i.average_rate }}</span>
+                </div>
+                <h3 class="card-h"><a href="{{ i.get_absolute_url }}">{{ i.title }}</a></h3>
+                <p class="card-p">{{ i.description }}</p>
+                <div class="card-footer-info">
+                    <span class="card-author">{{ i.author.get_full_name }}</span>
+                    <span class="card-views">{{ i.views }} views</span>
+                </div>
             </div>
         </article>
-
-        <article class="article-card hover-rise">
-            <img src="{% static 'img/articles/supply-demand.jpg' %}" alt="Supply and Demand">
-            <div class="article-category">Economics</div>
-            <div class="article-content">
-                <h3 class="article-title">Supply and Demand</h3>
-                <p class="article-desc">
-                    A clear explanation of the core economic principle of supply and demand and its real-world
-                    applications.
-                </p>
-                <div class="article-meta">Created: 2026-01-02</div>
-                <a href="/articles/supply-and-demand/" class="btn-outline">Read more →</a>
-            </div>
-        </article>
-
-        <article class="article-card hover-rise">
-            <img src="{% static 'img/articles/interest-rates.jpg' %}" alt="Interest Rates">
-            <div class="article-category">Finance</div>
-            <div class="article-content">
-                <h3 class="article-title">Interest Rates Explained</h3>
-                <p class="article-desc">Learn how interest rates are set, how they affect borrowing, and why they matter
-                    to the economy.</p>
-                <div class="article-meta">Created: 2025-12-30</div>
-                <a href="/articles/how-interest-rates-work/" class="btn-outline">Read more →</a>
-            </div>
-        </article>
+        {% endfor %}
     </div>
 </section>
 
-<!-- POPULAR ARTICLES -->
-<section class="section popular">
-    <div class="section-header">
-        <h2 class="section-title">Popular Articles</h2>
+<section class="home-section bg-categories">
+    <div class="section-top">
+        <h2 class="h2-title">Top Categories</h2>
+    </div>
+    <div class="category-grid">
+        {% for cat in categories %}
+        <a href="/categories/{{ cat.slug }}/" class="category-box">
+            <div class="category-box-content">
+                <h3>{{ cat.name }}</h3>
+                <span>Explore insights →</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="home-section bg-popular">
+    <div class="section-top">
+        <h2 class="h2-title">Most Popular</h2>
     </div>
 
-    <div class="article-list">
-        <article class="article-card hover-rise">
-            <img src="{% static 'img/articles/finance-basics.jpg' %}" alt="Finance Basics">
-            <div class="article-category">Finance</div>
-            <div class="article-content">
-                <h3 class="article-title">Finance Basics for Beginners</h3>
-                <p class="article-desc">Learn the fundamentals of personal and corporate finance in easy steps.</p>
-                <div class="article-meta">Created: 2025-11-20</div>
-                <a href="/articles/finance-basics/" class="btn-outline">Read more →</a>
+    <div class="popular-grid-visual">
+        {% for p in popular %}
+        <div class="popular-card-visual">
+            <div class="pop-image-box">
+                <span class="pop-number">{{ forloop.counter }}</span>
+                <img src="{{ p.image.url }}" alt="{{ p.title }}">
             </div>
-        </article>
-
-        <article class="article-card hover-rise">
-            <img src="{% static 'img/articles/business-strategy.jpg' %}" alt="Business Strategy">
-            <div class="article-category">Business</div>
-            <div class="article-content">
-                <h3 class="article-title">Business Strategy Essentials</h3>
-                <p class="article-desc">Top strategies every entrepreneur should know to succeed in business.</p>
-                <div class="article-meta">Created: 2025-12-01</div>
-                <a href="/articles/business-strategy/" class="btn-outline">Read more →</a>
+            <div class="popular-body">
+                <h4 class="popular-h"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h4>
+                <div class="popular-meta">{{ p.views }} views • {{ p.category.name }}</div>
             </div>
-        </article>
-
-        <article class="article-card hover-rise">
-            <img src="{% static 'img/articles/investing.jpg' %}" alt="Investing">
-            <div class="article-category">Investing</div>
-            <div class="article-content">
-                <h3 class="article-title">Investing 101</h3>
-                <p class="article-desc">A beginner’s guide to making smart investment decisions.</p>
-                <div class="article-meta">Created: 2025-12-15</div>
-                <a href="/articles/investing-101/" class="btn-outline">Read more →</a>
-            </div>
-        </article>
+        </div>
+        {% endfor %}
     </div>
 </section>
 
