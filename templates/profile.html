@@ -22,7 +22,11 @@
 
     <aside class="profile-sidebar">
         <div class="user-box">
+            {% if request.user.profile_image %}
             <img src="{{ request.user.profile_image.url }}" alt="Profile image">
+            {% else %}
+            <img src="/static/img/default.png" alt="Profile image">
+            {% endif %}
             <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
             <p>{{ request.user.email }}</p>
 
@@ -34,10 +38,10 @@
         </div>
 
         <nav class="profile-menu">
-            <a href="#" class="menu-link">Update Profile</a>
-            <a href="#" class="menu-link">Change Email</a>
-            <a href="#" class="menu-link">Change Password</a>
-            <a href="#" class="menu-link danger">Delete Account</a>
+            <a href="{% url 'profile-update' %}" class="menu-link">Update Profile</a>
+            <a href="{% url 'email-update' %}" class="menu-link">Change Email</a>
+            <a href="{% url 'password-update' %}" class="menu-link">Change Password</a>
+            <a href="{% url 'delete-account' %}" class="menu-link danger">Delete Account</a>
             <a href="/logout/" class="menu-link logout">Logout</a>
         </nav>
     </aside>

@@ -1,0 +1,73 @@
+/* ===============================
+   PROFILE UPDATE
+================================ */
+
+.profile-edit {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+.profile-edit h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+}
+
+/* Form groups */
+.profile-edit form>div:not(.form-actions) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.profile-edit label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--slate);
+}
+
+/* Inputs */
+.profile-edit input[type="text"],
+.profile-edit textarea,
+.profile-edit input[type="file"] {
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: var(--ease);
+    background: #fff;
+}
+
+.profile-edit textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Focus */
+.profile-edit input:focus,
+.profile-edit textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* File input */
+.profile-edit input[type="file"] {
+    padding: 10px;
+    font-size: 13.5px;
+}
+
+/* Actions */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    justify-content: flex-start;
+}

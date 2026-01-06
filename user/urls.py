@@ -6,6 +6,12 @@ from .views import (
     LogoutView,
     LoginView,
     ResendOTPView,
+    UserDeleteView,
+    ProfileUpdateView,
+    PasswordUpdateView,
+    UpdateEmailView,
+    VerifyEmailUpdateView,
+    ResendEmailUpdateOTPView,
     )
 
 
@@ -16,4 +22,10 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(), name='login'),
     path('verify/resend/', ResendOTPView.as_view(), name='resend-otp'),
+    path('delete-account/', UserDeleteView.as_view(), name='delete-account'),
+    path('profile-update/', ProfileUpdateView.as_view(), name='profile-update'),
+    path("password-update/", PasswordUpdateView.as_view(), name="password-update"),
+    path('email-update/', UpdateEmailView.as_view(), name='email-update'),
+    path('email-update-verify/', VerifyEmailUpdateView.as_view(), name='verify-email-update'),
+    path('email-update-resend/', ResendEmailUpdateOTPView.as_view(), name='resend-email-update-otp'),
 ]

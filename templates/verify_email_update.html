@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify Email | iqtisodiybilim.uz{% endblock %}
+
+{% block content %}
+
+<section class="profile-edit">
+
+    <h2>Verify New Email</h2>
+
+    <p style="color: var(--slate); font-size: 14px; margin-bottom: 24px;">
+        We have sent a verification code to your new email address.
+        Please enter the code below to confirm the change.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div>
+            <label>Verification code</label>
+            <input
+                type="text"
+                name="code"
+                placeholder="Enter 6-digit code"
+                required
+            >
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn--primary">
+                Verify & Update Email
+            </button>
+
+            <a href="{% url 'dashboard' %}" class="btn btn--ghost">
+                Cancel
+            </a>
+        </div>
+    </form>
+
+    <form
+        method="post"
+        action="{% url 'resend-email-update-otp' %}"
+        style="margin-top: 20px; text-align: center;"
+    >
+        {% csrf_token %}
+        <button type="submit" class="btn btn--ghost">
+            Resend verification code
+        </button>
+    </form>
+
+</section>
+
+{% endblock %}

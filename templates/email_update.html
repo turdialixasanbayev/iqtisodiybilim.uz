@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Email | iqtisodiybilim.uz{% endblock %}
+
+{% block content %}
+
+<section class="profile-edit">
+
+    <h2>Update Email Address</h2>
+
+    <p style="color: var(--slate); font-size: 14px; margin-bottom: 24px;">
+        Enter your new email address. We will send a verification code to confirm the change.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div>
+            <label>New email address</label>
+            <input
+                type="email"
+                name="email"
+                placeholder="newemail@example.com"
+                required
+            >
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn--primary">
+                Send verification code
+            </button>
+
+            <a href="{% url 'dashboard' %}" class="btn btn--ghost">
+                Cancel
+            </a>
+        </div>
+    </form>
+
+</section>
+
+{% endblock %}

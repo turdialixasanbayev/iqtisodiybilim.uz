@@ -13,6 +13,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=100, null=True, blank=True)
     profile_image = models.ImageField(upload_to='profile_images', null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
+    pending_email = models.EmailField(null=True, blank=True)
 
     objects = CustomUserManager()
 
