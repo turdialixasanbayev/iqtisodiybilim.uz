@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Category | {{ category.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- =======================
+    CATEGORY HERO
+======================= -->
+<section class="category-hero">
+    <div class="category-container">
+        <h1 class="category-title">
+            Category: <span>{{ category.name }}</span>
+        </h1>
+        <p class="category-desc">
+            Explore expert articles under the
+            <strong>{{ category.name }}</strong> category.
+        </p>
+    </div>
+</section>
+
+<!-- =======================
+    MAIN WRAPPER
+======================= -->
+<div class="category-page-wrapper">
+
+    <!-- =======================
+        MAIN CONTENT
+    ======================= -->
+    <main class="category-main">
+
+        <!-- CATEGORY ARTICLES -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Articles in {{ category.name }}
+                </h2>
+            </div>
+
+            <div class="article-grid">
+                {% for article in articles %}
+                <article class="article-card hover-rise">
+
+                    <div class="article-image">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        <span class="article-category">
+                            {{ article.category.name }}
+                        </span>
+                    </div>
+
+                    <div class="article-content">
+
+                        <div class="article-meta-top">
+                            <span>⏱ {{ article.reading_time }} min</span>
+                            <span>⭐ {{ article.average_rate }} ({{ article.rate_count }})</span>
+                        </div>
+
+                        <h3 class="article-title">
+                            <a href="{{ article.get_absolute_url }}">
+                                {{ article.title }}
+                            </a>
+                        </h3>
+
+                        <p class="article-desc">
+                            {{ article.description|truncatewords:20 }}
+                        </p>
+
+                        <div class="article-meta-bottom">
+                            <span>✍ {{ article.author.get_full_name }}</span>
+                            <span>👁 {{ article.views }}</span>
+                        </div>
+
+                        <a href="{{ article.get_absolute_url }}" class="btn-outline">
+                            Read more →
+                        </a>
+
+                    </div>
+                </article>
+                {% empty %}
+                <p>No articles found in this category.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- LATEST ARTICLES -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Latest Articles</h2>
+            </div>
+
+            <div class="article-grid">
+                {% for article in latest_articles %}
+                <article class="article-card hover-rise">
+
+                    <div class="article-image">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        <span class="article-category">{{ article.category.name }}</span>
+                    </div>
+
+                    <div class="article-content">
+                        <h3 class="article-title">
+                            <a href="{{ article.get_absolute_url }}">
+                                {{ article.title }}
+                            </a>
+                        </h3>
+
+                        <p class="article-desc">
+                            {{ article.description|truncatewords:18 }}
+                        </p>
+
+                        <div class="article-meta-bottom">
+                            <span>📅 {{ article.published_at|date:"M d, Y" }}</span>
+                            <span>👁 {{ article.views }}</span>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- POPULAR ARTICLES -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Popular Articles</h2>
+            </div>
+
+            <div class="article-list">
+                {% for article in popular_articles %}
+                <article class="article-card hover-rise">
+
+                    <div class="article-image">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                    </div>
+
+                    <div class="article-content">
+                        <span class="article-category">
+                            {{ article.category.name }}
+                        </span>
+
+                        <h3 class="article-title">
+                            <a href="{{ article.get_absolute_url }}">
+                                {{ article.title }}
+                            </a>
+                        </h3>
+
+                        <p class="article-desc">
+                            {{ article.description|truncatewords:16 }}
+                        </p>
+
+                        <div class="article-meta-bottom">
+                            <span>⭐ {{ article.average_rate }}</span>
+                            <span>👁 {{ article.views }}</span>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =======================
+        SIDEBAR
+    ======================= -->
+    <aside class="category-sidebar">
+
+        <!-- Categories -->
+        <div class="sidebar-box">
+            <h3 class="sidebar-title">Categories</h3>
+            <ul class="category-list">
+                {% for cat in categories %}
+                <li>
+                    <a href="{% url 'categories' cat.slug %}">
+                        {{ cat.name }}
+                        <span>({{ cat.article_category.count }})</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-box">
+            <h3 class="sidebar-title">Popular Tags</h3>
+            <div class="tag-cloud">
+                {% for tag in tags %}
+                <span class="tag-item">#{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+    </aside>
+
+</div>
+
+{% endblock %}

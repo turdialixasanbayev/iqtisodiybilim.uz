@@ -1,45 +1,60 @@
 /* ==================================================
-   CATEGORY & ARTICLES - CLEAN PRO DESIGN
+   CATEGORY PAGE – OPTIMIZED & CLEAN
 ================================================== */
 
-/* --- Category Hero --- */
+/* ---------- HERO ---------- */
 .category-hero {
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(245, 158, 11, 0.1));
-    padding: 80px 60px;
+    background: linear-gradient(135deg,
+            rgba(37, 99, 235, 0.15),
+            rgba(245, 158, 11, 0.1));
+    padding: 80px 40px;
     text-align: center;
     border-radius: 16px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .category-title {
-    font-size: 48px;
+    font-size: clamp(32px, 5vw, 48px);
     font-weight: 900;
     color: #0f172a;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+}
+
+.category-title span {
+    color: #2563eb;
 }
 
 .category-desc {
     font-size: 18px;
     color: #6b7280;
-    max-width: 700px;
-    margin: 0 auto 25px;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
-/* --- Section Headers --- */
-.section.latest .section-header,
-.section.popular .section-header {
-    text-align: center;
-    margin-bottom: 35px;
+/* ---------- PAGE WRAPPER ---------- */
+.category-page-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 60px;
 }
 
-.section.latest .section-title,
-.section.popular .section-title {
+/* ---------- SECTION ---------- */
+.section {
+    margin-bottom: 80px;
+}
+
+.section-header {
+    margin-bottom: 40px;
+}
+
+.section-title {
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 800;
     color: #0f172a;
 }
 
-/* --- Article Grid & Cards --- */
+/* ---------- ARTICLE GRID ---------- */
 .article-grid,
 .article-list {
     display: grid;
@@ -47,123 +62,193 @@
     gap: 30px;
 }
 
+/* ---------- ARTICLE CARD ---------- */
 .article-card {
-    position: relative;
-    background: #ffffff;
+    background: #fff;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: all 0.4s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform .35s ease, box-shadow .35s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .article-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 25px 45px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 25px 45px rgba(37, 99, 235, .25);
 }
 
-/* --- Image --- */
-.article-card img {
+/* ---------- IMAGE ---------- */
+.article-image img {
     width: 100%;
     height: 180px;
     object-fit: cover;
 }
 
-/* --- Category Badge --- */
+/* ---------- CATEGORY BADGE ---------- */
 .article-category {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    color: #ffffff;
-    background: #2563eb;
-    padding: 5px 12px;
-    border-radius: 12px;
     position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 2;
+    top: 14px;
+    left: 14px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 800;
     text-transform: uppercase;
+    color: #fff;
+    background: #2563eb;
+    border-radius: 999px;
 }
 
-/* --- Article Content --- */
+/* ---------- CONTENT ---------- */
 .article-content {
-    padding: 20px;
-    flex-grow: 1;
+    padding: 22px;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+}
+
+.article-meta-top,
+.article-meta-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 10px;
 }
 
 .article-title {
     font-size: 20px;
-    font-weight: 700;
-    color: #1e3a8a;
+    font-weight: 800;
     margin-bottom: 12px;
+}
+
+.article-title a {
+    color: #1e3a8a;
+    transition: color .2s ease;
+}
+
+.article-title a:hover {
+    color: #2563eb;
 }
 
 .article-desc {
     font-size: 15px;
-    color: #475569;
     line-height: 1.6;
+    color: #475569;
+    margin-bottom: 18px;
     flex-grow: 1;
-    margin-bottom: 16px;
 }
 
-.article-meta {
-    font-size: 13px;
-    color: #64748b;
-    margin-bottom: 12px;
-}
-
-/* --- Buttons --- */
+/* ---------- BUTTON ---------- */
 .btn-outline {
-    display: inline-block;
+    align-self: flex-start;
     font-size: 14px;
-    font-weight: 600;
-    color: #2563eb;
+    font-weight: 700;
     padding: 8px 18px;
+    color: #2563eb;
     border: 2px solid #2563eb;
     border-radius: 8px;
-    text-align: center;
-    transition: all 0.3s ease;
+    transition: all .25s ease;
 }
 
 .btn-outline:hover {
     background: #2563eb;
-    color: #ffffff;
+    color: #fff;
     transform: translateY(-2px);
 }
 
-/* --- Popular Section Specific --- */
+/* ---------- SIDEBAR ---------- */
+.category-sidebar {
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+.sidebar-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+    margin-bottom: 40px;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 20px;
+}
+
+/* ---------- CATEGORY LIST ---------- */
+.category-list {
+    list-style: none;
+}
+
+.category-list li {
+    margin-bottom: 14px;
+}
+
+.category-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #475569;
+    transition: color .2s ease;
+}
+
+.category-list a span {
+    font-weight: 800;
+    color: #2563eb;
+}
+
+.category-list a:hover {
+    color: #2563eb;
+}
+
+/* ---------- TAG CLOUD (NEW DESIGN) ---------- */
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-item {
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #0f172a;
+    cursor: default;
+    transition: all .25s ease;
+}
+
+.tag-item:hover {
+    background: #2563eb;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ---------- POPULAR SECTION ---------- */
 .section.popular {
-    background: #f0f4f8; /* Latest artikladan farq */
-    padding: 80px 60px;
+    background: #f0f4f8;
+    padding: 80px 40px;
     border-radius: 16px;
 }
 
-.section.popular .section-title {
-    font-size: 34px;
-    font-weight: 800;
-    color: #1e3a8a;
-    text-align: center;
-    margin-bottom: 50px;
-    letter-spacing: 1px;
-}
-
-/* --- Gradient Overlay for Popular Cards --- */
 .article-list .article-card::before {
     content: "";
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: rgba(59, 130, 246, 0.1);
+    inset: -50%;
+    background: rgba(59, 130, 246, .08);
     transform: rotate(45deg);
-    transition: all 0.5s ease;
+    transition: inset .5s ease;
 }
 
 .article-list .article-card:hover::before {
-    top: -20%;
-    left: -20%;
+    inset: -20%;
 }

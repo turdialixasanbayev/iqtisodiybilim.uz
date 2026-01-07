@@ -1,35 +1,181 @@
 {% extends "base.html" %}
-{% block title %}Article{% endblock %}
+
+{% load static %}
+
+{% block title %}Article Detail | {{ article.title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/article-detail.css' %}">
+{% endblock %}
 
 {% block content %}
-<article class="article-detail">
-    <h1>What Is Inflation?</h1>
 
-    <div class="article-meta">
-        <span>Category: Macroeconomics</span>
-        <span>Published: Jan 3, 2026</span>
+<!-- =======================
+    ARTICLE HERO
+======================= -->
+<article class="article-detail-wrapper">
+
+    <!-- Title & Meta -->
+    <header class="article-header">
+        <h1 class="article-title">{{ article.title }}</h1>
+
+        <div class="article-meta">
+            <span>Category: 
+                <a href="{% url 'categories' article.category.slug %}">
+                    {{ article.category.name }}
+                </a>
+            </span>
+            <span>Published: {{ article.published_at|date:"M d, Y" }}</span>
+            <span>Reading Time: {{ article.reading_time }} min</span>
+            <span>Views: {{ article.views }}</span>
+        </div>
+
+        <div class="article-rating">
+            ★ {{ article.average_rate }} ({{ article.rate_count }} reviews)
+        </div>
+
+        <!-- Author Info -->
+        <div class="article-author">
+            {% if article.author.profile_image %}
+                <img src="{{ article.author.profile_image.url }}" alt="{{ article.author.get_full_name }}">
+            {% endif %}
+            <div>
+                <strong>{{ article.author.get_full_name }}</strong>
+                {% if article.author.bio %}
+                    <p>{{ article.author.bio }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Image -->
+    {% if article.image %}
+    <div class="article-main-image">
+        <img src="{{ article.image.url }}" alt="{{ article.title }}">
     </div>
+    {% endif %}
 
-    <div class="rating">
-        ★★★★☆ <span>(4.2)</span>
-    </div>
-
+    <!-- Article Content -->
     <div class="article-content">
-        <p>Inflation is the increase in prices over time...</p>
+        {% if article.description %}
+            <p>{{ article.description|linebreaks }}</p>
+        {% endif %}
+        {% if article.description_2 %}
+            <p>{{ article.description_2|linebreaks }}</p>
+        {% endif %}
+        {% if article.image_2 %}
+            <img src="{{ article.image_2.url }}" alt="{{ article.title }}">
+        {% endif %}
     </div>
+
+    <!-- Tags -->
+    {% if article.tags.all %}
+    <div class="article-tags">
+        <h4>Tags:</h4>
+        <ul>
+            {% for tag in article.tags.all %}
+                <li>#{{ tag.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
 </article>
 
-<section class="comments">
-    <h3>Comments</h3>
+<!-- =======================
+    RELATED ARTICLES
+======================= -->
+<section class="related-articles">
+    <h3>Related Articles</h3>
+    <div class="article-grid">
+        {% for ra in related_articles %}
+        <article class="article-card">
+            {% if ra.image %}
+                <img src="{{ ra.image.url }}" alt="{{ ra.title }}">
+            {% endif %}
+            <h4><a href="{{ ra.get_absolute_url }}">{{ ra.title }}</a></h4>
+            <span>Category: <a href="{% url 'categories' ra.category.slug %}">{{ ra.category.name }}</a></span>
+            <span>Views: {{ ra.views }}</span>
+        </article>
+        {% empty %}
+        <p>No related articles.</p>
+        {% endfor %}
+    </div>
+</section>
 
-    <div class="comment">
-        <strong>John</strong>
-        <p>Very clear explanation.</p>
+<!-- =======================
+    COMMENTS
+======================= -->
+<section class="comments-section">
+    <h3>Comments ({{ article.comment_count }})</h3>
+
+    <div class="comments-list">
+        {% for comment in comments %}
+        <div class="comment" id="comment-{{ comment.id }}">
+            <div class="comment-author">
+                {% if comment.user.profile_image %}
+                    <img src="{{ comment.user.profile_image.url }}" alt="{{ comment.user.get_full_name }}">
+                {% endif %}
+                <strong>{{ comment.user.get_full_name }}</strong>
+                <span>★ {{ comment.rate }}</span>
+                <span>{{ comment.created_at|date:"M d, Y H:i" }}</span>
+            </div>
+            <div class="comment-text">
+                {{ comment.comment|linebreaks }}
+            </div>
+
+            <!-- REPLY BUTTON -->
+            <button class="btn-reply" data-comment-id="{{ comment.id }}">Reply</button>
+
+            <!-- REPLIES -->
+            {% if comment.replies.all %}
+            <div class="replies">
+                {% for reply in comment.replies.all %}
+                <div class="comment reply">
+                    <div class="comment-author">
+                        {% if reply.user.profile_image %}
+                            <img src="{{ reply.user.profile_image.url }}" alt="{{ reply.user.get_full_name }}">
+                        {% endif %}
+                        <strong>{{ reply.user.get_full_name }}</strong>
+                        <span>{{ reply.created_at|date:"M d, Y H:i" }}</span>
+                    </div>
+                    <div class="comment-text">
+                        {{ reply.comment|linebreaks }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- REPLY FORM -->
+            {% if user.is_authenticated %}
+            <form method="POST" action="{{ article.get_absolute_url }}" class="reply-form" id="reply-form-{{ comment.id }}" style="display:none;">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <textarea name="comment" placeholder="Write a reply..." required></textarea>
+                <button type="submit">Reply</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
 
-    <form class="comment-form">
-        <textarea placeholder="Leave a comment..."></textarea>
-        <button class="btn">Submit</button>
+    <!-- ADD COMMENT FORM -->
+    {% if user.is_authenticated %}
+    <form method="POST" action="{{ article.get_absolute_url }}" class="comment-form">
+        {% csrf_token %}
+        <label for="rate">Rate:</label>
+        <select name="rate" required>
+            {% for i in "12345" %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <textarea name="comment" placeholder="Leave a comment..." required></textarea>
+        <button type="submit">Submit</button>
     </form>
+    {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to post a comment.</p>
+    {% endif %}
 </section>
+
 {% endblock %}

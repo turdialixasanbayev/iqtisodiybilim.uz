@@ -1,3 +1,6 @@
+/* =======================
+   LAYOUT
+======================= */
 .articles-page-wrapper {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -5,17 +8,19 @@
     padding-top: 40px;
 }
 
-/* --- FEED STYLING --- */
+/* =======================
+   FEED HEADER
+======================= */
 .feed-header {
     margin-bottom: 48px;
-    border-bottom: 2px solid #f1f5f9;
     padding-bottom: 24px;
+    border-bottom: 2px solid #f1f5f9;
 }
 
 .page-title {
-    font-size: 42px;
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 900;
-    letter-spacing: -1.5px;
+    letter-spacing: -1.2px;
     color: var(--dark);
 }
 
@@ -24,11 +29,15 @@
 }
 
 .results-count {
-    color: var(--slate);
-    font-weight: 500;
     margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--slate);
 }
 
+/* =======================
+   ARTICLES STACK
+======================= */
 .articles-stack {
     display: grid;
     gap: 40px;
@@ -40,13 +49,17 @@
     gap: 32px;
     background: #fff;
     border-radius: 24px;
-    transition: var(--ease);
+    transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .feed-card:hover {
-    transform: translateX(10px);
+    transform: translateX(8px);
 }
 
+/* =======================
+   IMAGE
+======================= */
 .card-img {
     position: relative;
     height: 200px;
@@ -64,33 +77,37 @@
     position: absolute;
     top: 15px;
     left: 15px;
-    background: var(--dark);
-    color: #fff;
     padding: 6px 14px;
-    border-radius: 8px;
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
+    background: var(--dark);
+    color: #fff;
+    border-radius: 8px;
 }
 
+/* =======================
+   CARD CONTENT
+======================= */
 .card-meta-top {
     display: flex;
     gap: 15px;
+    margin-bottom: 12px;
     font-size: 13px;
     font-weight: 700;
     color: var(--slate);
-    margin-bottom: 12px;
 }
 
 .card-title {
+    margin-bottom: 12px;
     font-size: 24px;
     font-weight: 800;
     line-height: 1.3;
-    margin-bottom: 12px;
 }
 
 .card-title a {
     color: var(--dark);
+    transition: color 0.2s ease;
 }
 
 .card-title a:hover {
@@ -98,10 +115,10 @@
 }
 
 .card-excerpt {
-    color: var(--slate);
-    font-size: 16px;
     margin-bottom: 24px;
+    font-size: 16px;
     line-height: 1.6;
+    color: var(--slate);
 }
 
 .card-footer {
@@ -114,7 +131,9 @@
     font-weight: 700;
 }
 
-/* --- SIDEBAR STYLING --- */
+/* =======================
+   SIDEBAR
+======================= */
 .articles-sidebar {
     position: sticky;
     top: 100px;
@@ -122,20 +141,19 @@
 }
 
 .sidebar-widget {
-    background: #fff;
+    margin-bottom: 32px;
     padding: 28px;
+    background: #fff;
     border-radius: 24px;
     border: 1px solid #f1f5f9;
-    margin-bottom: 32px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 .widget-title {
+    margin-bottom: 20px;
     font-size: 18px;
     font-weight: 800;
-    margin-bottom: 20px;
     color: var(--dark);
-    position: relative;
 }
 
 .widget-title::after {
@@ -143,11 +161,14 @@
     display: block;
     width: 30px;
     height: 3px;
-    background: var(--primary);
     margin-top: 8px;
+    background: var(--primary);
     border-radius: 2px;
 }
 
+/* =======================
+   CATEGORY LIST
+======================= */
 .widget-list {
     list-style: none;
 }
@@ -159,20 +180,24 @@
 .widget-list a {
     display: flex;
     justify-content: space-between;
-    color: var(--slate);
-    font-weight: 600;
     font-size: 15px;
+    font-weight: 600;
+    color: var(--slate);
+    transition: color 0.2s ease;
 }
 
 .widget-list a span {
-    color: var(--primary);
     font-weight: 800;
+    color: var(--primary);
 }
 
 .widget-list a:hover {
     color: var(--primary);
 }
 
+/* =======================
+   TAGS
+======================= */
 .tags-cloud {
     display: flex;
     flex-wrap: wrap;
@@ -180,29 +205,16 @@
 }
 
 .tag-item {
-    background: #f1f5f9;
     padding: 6px 14px;
-    border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
+    border-radius: 8px;
+    background: #f1f5f9;
     color: var(--dark);
+    transition: all 0.2s ease;
 }
 
 .tag-item:hover {
     background: var(--primary);
     color: #fff;
-}
-
-.search-form {
-    display: flex;
-    gap: 10px;
-}
-
-.search-form input {
-    flex: 1;
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    outline: none;
-    font-weight: 600;
 }

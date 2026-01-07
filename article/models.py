@@ -6,12 +6,9 @@ from django.db.models import Avg
 
 class Article(models.Model):
     title = models.CharField(max_length=250, unique=True)
-    title_2 = models.CharField(max_length=250, null=True, blank=True)
     slug = models.SlugField(max_length=300, unique=True, null=True, blank=True)
     image = models.ImageField(upload_to='articles/', null=True, blank=True)
-    image_2 = models.ImageField(upload_to='articles/', null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    description_2 = models.TextField(null=True, blank=True)
     author = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='article_author')
     category = models.ForeignKey('category.Category', on_delete=models.CASCADE, related_name='article_category')
     tags = models.ManyToManyField('category.Tag', blank=True, related_name='article_tags')
@@ -19,6 +16,8 @@ class Article(models.Model):
     published_at = models.DateTimeField(null=True, blank=True)
     reading_time = models.PositiveSmallIntegerField(null=True, blank=True)
     last_viewed_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -66,6 +65,5 @@ class Comment(models.Model):
         return f"{self.user.email} --> {self.article.title}"
 
     class Meta:
-        unique_together = ("article", "user")
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'

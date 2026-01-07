@@ -8,4 +8,12 @@ class CategoryPage(View):
     def get(self, request, slug):
         category = Category.objects.get(slug__exact=slug)
         articles = Article.objects.filter(category=category)
-        return render(request, 'category.html', context={'articles': articles})
+        latest_articles = Article.objects.order_by('-id')[:3]
+        popular_articles = Article.objects.order_by('-views')[:3]
+        context = {
+            'articles': articles,
+            'category': category,
+            'latest_articles': latest_articles,
+            'popular_articles': popular_articles
+        }
+        return render(request, 'categories.html', context=context)

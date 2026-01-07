@@ -1,0 +1,373 @@
+/* ==================================================
+   ARTICLE DETAIL - PROFESSIONAL RESPONSIVE STYLE
+================================================== */
+
+/* --- Wrapper --- */
+.article-detail-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+    color: #1e293b;
+}
+
+/* --- Article Header --- */
+.article-header {
+    margin-bottom: 30px;
+}
+
+.article-title {
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.article-meta a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.article-meta a:hover {
+    text-decoration: underline;
+}
+
+.article-rating {
+    font-size: 16px;
+    font-weight: 700;
+    color: #facc15;
+    margin-bottom: 25px;
+}
+
+/* --- Author Info --- */
+.article-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.article-author img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.article-author p {
+    margin: 0;
+    font-size: 14px;
+    color: #475569;
+}
+
+/* --- Article Images --- */
+.article-main-image img,
+.article-content img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 25px 0;
+    display: block;
+}
+
+/* --- Article Content --- */
+.article-content p {
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+    margin: 20px 0 10px;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+/* --- Categories & Tags --- */
+.article-categories,
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.article-categories a,
+.article-tags a {
+    background: #f1f5f9;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.article-categories a:hover,
+.article-tags a:hover {
+    background: #2563eb;
+    color: #fff;
+}
+
+/* ==================================================
+   RELATED ARTICLES
+================================================== */
+.related-articles {
+    margin-top: 50px;
+}
+
+.related-articles h3 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.article-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 45px rgba(37, 99, 235, 0.15);
+}
+
+.article-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.article-card h4 {
+    font-size: 18px;
+    margin: 10px 15px 5px;
+    color: #0f172a;
+}
+
+.article-card span {
+    font-size: 13px;
+    color: #64748b;
+    margin-left: 15px;
+}
+
+/* ==================================================
+   COMMENTS SECTION
+================================================== */
+.comments-section {
+    margin-top: 60px;
+}
+
+.comments-section h3 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+/* --- Comment List --- */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.comment {
+    background: #f1f5f9;
+    padding: 18px 22px;
+    border-radius: 14px;
+    position: relative;
+}
+
+.comment.reply {
+    margin-left: 50px;
+    background: #e2e8f0;
+}
+
+.comment-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.comment-author img {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.comment-author strong {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.comment-author span {
+    font-size: 12px;
+    color: #475569;
+    margin-left: auto;
+}
+
+/* --- Comment Text --- */
+.comment-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+/* --- Reply Button --- */
+.btn-reply {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: color 0.2s;
+}
+
+.btn-reply:hover {
+    color: #1e40af;
+}
+
+/* --- Reply Form --- */
+.reply-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reply-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.reply-form button {
+    align-self: flex-end;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.reply-form button:hover {
+    background: #1e40af;
+}
+
+/* --- Add Comment Form --- */
+.comment-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    resize: vertical;
+    font-size: 15px;
+}
+
+.comment-form select {
+    width: 120px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+.comment-form button {
+    align-self: flex-start;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.comment-form button:hover {
+    background: #1e40af;
+}
+
+/* ==================================================
+   SIDEBAR - Categories & Tags
+================================================== */
+.article-sidebar {
+    margin-top: 60px;
+}
+
+.article-sidebar h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #0f172a;
+}
+
+.article-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.article-sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.article-sidebar ul li a {
+    color: #1e293b;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.article-sidebar ul li a span {
+    color: #2563eb;
+    margin-left: 6px;
+    font-weight: 700;
+}
+
+.article-sidebar ul li a:hover {
+    color: #2563eb;
+}
