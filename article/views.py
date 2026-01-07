@@ -6,17 +6,19 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models import F
 
 
 class ArticleDetailPage(View):
     def get(self, request, slug):
-        article = get_object_or_404(Article, slug__exact=slug)
-        related_articles = Article.objects.filter(category=article.category).exclude(id=article.id)
+        article = get_object_or_404(Article.objects.select_related('author', 'category').prefetch_related('tags'), slug__exact=slug)
+        related_articles = Article.objects.filter(category=article.category).exclude(id=article.id).select_related('category', 'author').prefetch_related('tags')[:5]
         comments = Comment.objects.filter(article=article).select_related('user', 'article').order_by('-created_at')
 
-        article.views += 1
-        article.last_viewed_at = timezone.now()
-        article.save(update_fields=["views", "last_viewed_at"])
+        Article.objects.filter(id=article.id).update(
+            views=F('views') + 1,
+            last_viewed_at=timezone.now()
+        )
 
         context = {
             'article': article,
@@ -28,7 +30,7 @@ class ArticleDetailPage(View):
     
     @method_decorator(login_required)
     def post(self, request, slug):
-        article = get_object_or_404(Article, slug__exact=slug)
+        article = get_object_or_404(Article.objects.prefetch_related('tags').select_related('author', 'category'), slug__exact=slug)
 
         rate = request.POST.get('rate')
         comment = request.POST.get('comment')
@@ -40,13 +42,13 @@ class ArticleDetailPage(View):
 
 class ArticleListPage(View):
     def get(self, request):
-        articles = Article.objects.order_by('-id')
+        articles = Article.objects.order_by('-created_at').select_related('category', 'author').prefetch_related('tags')
         return render(request, 'articles.html', context={'articles': articles})
 
 class HomePage(View):
     def get(self, request):
-        latest = Article.objects.order_by('-id')[:3]
-        popular = Article.objects.order_by('-views')[:3]
+        latest = Article.objects.order_by('-created_at')[:3].select_related('category', 'author').prefetch_related('tags')
+        popular = Article.objects.order_by('-views')[:3].select_related('category', 'author').prefetch_related('tags')
         context = {'latest': latest, 'popular': popular}
         return render(request, 'home.html', context)
 
