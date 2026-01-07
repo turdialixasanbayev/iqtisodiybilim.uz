@@ -3,7 +3,6 @@ from django.views import View
 from .tasks import send_notification_email_task
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.cache import cache
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, UpdateView, FormView

@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Avg
 
+
 class Article(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=300, unique=True, null=True, blank=True)
