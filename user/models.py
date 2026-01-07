@@ -30,27 +30,6 @@ class CustomUser(AbstractUser):
         return self.email
 
 
-class EmailOTP(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    code = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_used = models.BooleanField(default=False)
-
-    def is_expired(self):
-        return timezone.now() > self.created_at + timezone.timedelta(minutes=5)
-
-    @staticmethod
-    def generate():
-        return str(random.randint(100000, 999999))
-
-    class Meta:
-        verbose_name = "EmailOTP"
-        verbose_name_plural = "EmailOTP"
-
-    def __str__(self):
-        return self.user.email
-
-
 class Agent(models.Model):
     full_name = models.CharField(max_length=200)
     job = models.CharField(max_length=200)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, EmailOTP, Agent
+from .models import CustomUser, Agent
 
 admin.site.site_header = "iqtisodiybilim.uz Admin Dashboard"
 admin.site.site_title = "iqtisodiybilim.uz Admin Dashboard"
@@ -65,5 +65,4 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
-admin.site.register(EmailOTP)
 admin.site.register(Agent)

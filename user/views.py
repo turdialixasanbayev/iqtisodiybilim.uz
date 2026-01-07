@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import CustomUser, EmailOTP
 from .tasks import send_notification_email_task
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,8 +9,19 @@ from django.urls import reverse_lazy
 from django.views.generic import DeleteView, UpdateView, FormView
 from django.contrib.auth import get_user_model
 from .forms import ProfileUpdateForm, PasswordUpdateForm
+import random
+from django.core.files.base import ContentFile
+from django.utils import timezone
+import os, uuid
+from django.core.files.storage import default_storage
+
+
+def generate_otp_code():
+    return str(random.randint(100000, 999999))
+
 
 User = get_user_model()
+
 
 class RegisterView(View):
     def dispatch(self, request, *args, **kwargs):
@@ -22,12 +32,13 @@ class RegisterView(View):
 
     def get(self, request):
         return render(request, 'register.html')
-    
+
     def post(self, request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         bio = request.POST.get('bio')
         profile_image = request.FILES.get('profile_image')
+        profile_image_path = None
         email = request.POST.get('email')
         password = request.POST.get('password')
         repeat_password = request.POST.get('repeat_password')
@@ -35,39 +46,47 @@ class RegisterView(View):
         if not all([email, password, repeat_password]):
             messages.error(request, "Please fill in all required fields.")
             return redirect('register')
-        
+
         if password != repeat_password:
             messages.error(request, "Passwords do not match.")
             return redirect('register')
-        
+
         if len(password) < 8:
             messages.error(request, "Password must be at least 8 characters long.")
             return redirect('register')
-        
-        if CustomUser.objects.filter(email=email).exists():
+
+        if User.objects.filter(email=email).exists():
             messages.error(request, "This email is already registered.")
             return redirect('register')
         
-        user = CustomUser.objects.create_user(
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            bio=bio,
-            profile_image=profile_image,
-            is_active=False
-        )
+        if profile_image:
+            ext = profile_image.name.split('.')[-1]
+            filename = f"{uuid.uuid4()}.{ext}"
+            path = os.path.join('temp', filename)
+            saved_path = default_storage.save(path, profile_image)
+            profile_image_path = saved_path
 
-        code = EmailOTP.generate()
-        EmailOTP.objects.create(user=user, code=code)
+        otp_code = generate_otp_code()
+        otp_created_at = timezone.now().timestamp()
+        otp_last_sent = timezone.now().timestamp()
+
+        request.session['register_data'] = {
+            'email': email,
+            'password': password,
+            'first_name': first_name,
+            'last_name': last_name,
+            'bio': bio,
+            'profile_image_path': profile_image_path,
+            'otp_code': otp_code,
+            'otp_created_at': otp_created_at,
+            'otp_last_sent': otp_last_sent
+        }
 
         send_notification_email_task.delay(
             subject="Email verification code",
-            message=f"Your verification code: {code}",
+            message=f"Your verification code: {otp_code}",
             to=email
         )
-
-        request.session['verify_user_id'] = user.id
 
         messages.success(request, "Registration successful! A verification code has been sent to your email.")
         return redirect('verify')
@@ -75,7 +94,7 @@ class RegisterView(View):
 
 class VerifyView(View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('verify_user_id'):
+        if not request.session.get('register_data'):
             messages.error(request, "You need to register first before verifying your email.")
             return redirect('register')
         return super().dispatch(request, *args, **kwargs)
@@ -85,49 +104,45 @@ class VerifyView(View):
 
     def post(self, request):
         code = request.POST.get('code')
-        user_id = request.session.get('verify_user_id')
+        register_data = request.session.get('register_data')
 
-        if not user_id:
-            messages.error(request, "No user to verify. Please register first.")
+        if not register_data:
+            messages.error(request, "No registration data found. Please register first.")
             return redirect('register')
 
-        try:
-            otp = EmailOTP.objects.get(
-                user_id=user_id,
-                code=code,
-                is_used=False
-            )
-        except EmailOTP.DoesNotExist:
+        otp_created_at = register_data.get('otp_created_at')
+        otp_code = register_data.get('otp_code')
+
+        if timezone.now().timestamp() - otp_created_at > 300:
+            messages.error(request, "This verification code has expired. Please request a new one.")
+            return redirect('resend_otp')
+
+        if code != otp_code:
             messages.error(request, "Invalid verification code. Please try again.")
             return redirect('verify')
+        
+        profile_image_path = register_data.get('profile_image_path')
+        profile_image_file = None
 
-        if otp.is_expired():
-            messages.error(request, "This verification code has expired. A new code has been sent to your email.")
-            user = otp.user
-            EmailOTP.objects.filter(user=user).delete()
-            new_code = EmailOTP.generate()
-            EmailOTP.objects.create(user=user, code=new_code)
-            send_notification_email_task.delay(
-                subject="New verification code",
-                message=f"Your new verification code: {new_code}",
-                to=user.email
-            )
-            return redirect('verify')
+        if profile_image_path:
+            with default_storage.open(profile_image_path, 'rb') as f:
+                profile_image_file = ContentFile(f.read(), name=os.path.basename(profile_image_path))
 
-        otp.is_used = True
-        otp.save()
-
-        user = otp.user
-        user.is_active = True
-        user.save()
+        user = User.objects.create_user(
+            email=register_data.get('email'),
+            password=register_data.get('password'),
+            first_name=register_data.get('first_name'),
+            last_name=register_data.get('last_name'),
+            bio=register_data.get('bio'),
+            profile_image=profile_image_file
+        )
 
         login(request, user)
-        messages.success(request, "Your email has been successfully verified! Welcome 🎉")
 
         send_notification_email_task.delay(
             subject="Email successfully verified 🎉",
             message=(
-                "Hello!\n\n"
+                f"Hello {user.first_name}!\n\n"
                 "Your email address has been successfully verified.\n"
                 "Your account is now active and you can log in.\n\n"
                 "If this wasn't you, please contact our support immediately.\n\n"
@@ -137,24 +152,50 @@ class VerifyView(View):
             to=user.email
         )
 
-        del request.session['verify_user_id']
+        messages.success(request, "Your email has been successfully verified! Welcome 🎉")
+
+        del request.session['register_data']
 
         return redirect('dashboard')
 
 
-class ProfileView(View):
-    def get(self, request):
-        return render(request, 'profile.html')
+class ResendOTPView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.session.get('register_data'):
+            messages.error(request, "You need to register first before requesting a new code.")
+            return redirect('register')
+        return super().dispatch(request, *args, **kwargs)
 
+    def post(self, request):
+        register_data = request.session.get('register_data')
 
-class LogoutView(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name = None
+        if not register_data:
+            messages.error(request, "No registration data found. Please register first.")
+            return redirect('register')
 
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        request.session.flush()
-        return redirect('home')
+        email = register_data.get('email')
+        last_sent = register_data.get('otp_last_sent')
+
+        if last_sent and (timezone.now().timestamp() - last_sent < 60):
+            messages.warning(request, "You can only resend the verification code once per minute. Please wait.")
+            return redirect('verify')
+        
+        new_otp = generate_otp_code()
+
+        register_data['otp_code'] = new_otp
+        register_data['otp_created_at'] = timezone.now().timestamp()
+        register_data['otp_last_sent'] = timezone.now().timestamp()
+        request.session['register_data'] = register_data
+
+        send_notification_email_task.delay(
+            subject="Your new verification code",
+            message=f"Your new verification code: {new_otp}",
+            to=email
+        )
+
+        messages.success(request, "A new verification code has been sent to your email.")
+
+        return redirect('verify')
 
 
 class LoginView(View):
@@ -181,43 +222,25 @@ class LoginView(View):
             return redirect('login')
 
 
-class ResendOTPView(View):
+class ProfileView(View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('verify_user_id'):
-            messages.error(request, "You need to register first before requesting a new code.")
-            return redirect('register')
+        if not request.user.is_authenticated:
+            messages.info(request, "You are not log in!")
+            return redirect('login')
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request):
-        user_id = request.session.get('verify_user_id')
+    def get(self, request):
+        return render(request, 'profile.html')
 
-        if not user_id:
-            messages.error(request, "No user to resend OTP for. Please register first.")
-            return redirect('register')
 
-        user = CustomUser.objects.get(id=user_id)
-        cache_key = f"otp_resend_{user.id}"
+class LogoutView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = None
 
-        if cache.get(cache_key):
-            messages.warning(request, "You can only resend the verification code once per minute. Please wait.")
-            return redirect('verify')
-
-        # Delete old OTPs and create a new one
-        EmailOTP.objects.filter(user=user).delete()
-        code = EmailOTP.generate()
-        EmailOTP.objects.create(user=user, code=code)
-
-        send_notification_email_task.delay(
-            subject="Email verification code",
-            message=f"Your new verification code: {code}",
-            to=user.email
-        )
-
-        # Limit resend to once per minute
-        cache.set(cache_key, True, timeout=60)
-
-        messages.success(request, "A new verification code has been sent to your email.")
-        return redirect('verify')
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        request.session.flush()
+        return redirect('home')
 
 
 class UserDeleteView(LoginRequiredMixin, DeleteView):
@@ -265,42 +288,45 @@ class UpdateEmailView(LoginRequiredMixin, View):
 
     def post(self, request):
         new_email = request.POST.get('email')
+        user = request.user
 
         if not new_email:
             messages.error(request, "Please enter a valid email.")
             return redirect('email-update')
 
-        if CustomUser.objects.filter(email=new_email).exists():
+        if User.objects.filter(email=new_email).exists():
             messages.error(request, "This email is already in use.")
             return redirect('email-update')
+        
+        otp_code = generate_otp_code()
 
-        user = request.user
-        user.pending_email = new_email
-        user.save()
+        now_ts = timezone.now().timestamp()
 
-        EmailOTP.objects.filter(user=user).delete()
-
-        code = EmailOTP.generate()
-        EmailOTP.objects.create(user=user, code=code)
+        request.session['email_update_data'] = {
+            'new_email': new_email,
+            'otp_code': otp_code,
+            'otp_created_at': now_ts,
+            'otp_last_sent': now_ts,
+            'old_email': user.email
+        }
 
         send_notification_email_task.delay(
             subject="Confirm your new email",
-            message=f"Your verification code: {code}",
+            message=f"Your verification code: {otp_code}",
             to=new_email
         )
-
-        request.session['verify_email_change'] = True
 
         messages.success(
             request,
             "A verification code has been sent to your new email address."
         )
+
         return redirect('verify-email-update')
 
 
 class VerifyEmailUpdateView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('verify_email_change'):
+        if not request.session.get('email_update_data'):
             messages.error(request, "No email change request found.")
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
@@ -310,43 +336,40 @@ class VerifyEmailUpdateView(LoginRequiredMixin, View):
 
     def post(self, request):
         code = request.POST.get('code')
+        data = request.session.get('email_update_data')
         user = request.user
 
-        try:
-            otp = EmailOTP.objects.get(
-                user=user,
-                code=code,
-                is_used=False
-            )
-        except EmailOTP.DoesNotExist:
+        if not data:
+            messages.error(request, "No email change request found.")
+            return redirect('dashboard')
+        
+        otp_code = data.get('otp_code')
+        otp_created_at = data.get('otp_created_at')
+        new_email = data.get('new_email')
+        old_email = data.get('old_email')
+
+        if timezone.now().timestamp() - otp_created_at > 300:
+            messages.error(request, "Verification code expired. Please request a new one.")
+            return redirect('resend-email-update-otp')
+
+        if code != otp_code:
             messages.error(request, "Invalid verification code.")
             return redirect('verify-email-update')
-
-        if otp.is_expired():
-            messages.error(
-                request,
-                "Verification code expired. A new code has been sent."
-            )
-            EmailOTP.objects.filter(user=user).delete()
-
-            new_code = EmailOTP.generate()
-            EmailOTP.objects.create(user=user, code=new_code)
-
-            send_notification_email_task.delay(
-                subject="New email verification code",
-                message=f"Your new code: {new_code}",
-                to=user.pending_email
-            )
-            return redirect('verify-email-update')
-
-        otp.is_used = True
-        otp.save()
-
-        user.email = user.pending_email
-        user.pending_email = None
+        
+        user.email = new_email
         user.save()
 
-        del request.session['verify_email_change']
+        send_notification_email_task.delay(
+            subject="Your email was successfully updated",
+            message=(
+                f"Hello!\n\n"
+                f"Your email address has been changed from {old_email} to {new_email}.\n"
+                "If this wasn't you, please contact support immediately."
+            ),
+            to=old_email
+        )
+
+        del request.session['email_update_data']
 
         messages.success(request, "Your email has been successfully updated.")
         return redirect('dashboard')
@@ -354,30 +377,33 @@ class VerifyEmailUpdateView(LoginRequiredMixin, View):
 
 class ResendEmailUpdateOTPView(LoginRequiredMixin, View):
     def post(self, request):
-        user = request.user
-        cache_key = f"email_update_otp_{user.id}"
+        data = request.session.get('email_update_data')
+        now_ts = timezone.now().timestamp()
 
-        if cache.get(cache_key):
-            messages.warning(
-                request,
-                "You can request a new code once per minute."
-            )
+        if not data:
+            messages.error(request, "No email change request found.")
+            return redirect('dashboard')
+
+        last_sent = data.get('otp_last_sent')
+
+        if last_sent and (now_ts - last_sent < 60):
+            messages.warning(request, "You can request a new code once per minute.")
             return redirect('verify-email-update')
 
-        EmailOTP.objects.filter(user=user).delete()
-        code = EmailOTP.generate()
-        EmailOTP.objects.create(user=user, code=code)
+        new_otp = generate_otp_code()
+
+        data['otp_code'] = new_otp
+        data['otp_created_at'] = now_ts
+        data['otp_last_sent'] = now_ts
+
+        request.session['email_update_data'] = data
 
         send_notification_email_task.delay(
             subject="Confirm your new email",
-            message=f"Your new verification code: {code}",
-            to=user.pending_email
+            message=f"Your new verification code: {new_otp}",
+            to=data['new_email']
         )
 
-        cache.set(cache_key, True, timeout=60)
+        messages.success(request, "A new verification code has been sent.")
 
-        messages.success(
-            request,
-            "A new verification code has been sent."
-        )
         return redirect('verify-email-update')
