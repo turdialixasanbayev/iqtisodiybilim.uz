@@ -406,3 +406,140 @@ class ResendEmailUpdateOTPView(LoginRequiredMixin, View):
         messages.success(request, "A new verification code has been sent.")
 
         return redirect('verify-email-update')
+
+
+class ForgotPasswordView(View):
+    def get(self, request):
+        return render(request, 'forgot_password.html')
+
+    def post(self, request):
+        email = request.POST.get('email')
+
+        if not email:
+            messages.error(request, "Please enter your email.")
+            return redirect('forgot-password')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, "No user found with this email.")
+            return redirect('forgot-password')
+
+        otp_code = generate_otp_code()
+        now_ts = timezone.now().timestamp()
+
+        request.session['forgot_password'] = {
+            'email': email,
+            'otp_code': otp_code,
+            'otp_created_at': now_ts,
+            'otp_last_sent': now_ts
+        }
+
+        send_notification_email_task.delay(
+            subject="Password reset code",
+            message=f"Your password reset code: {otp_code}",
+            to=email
+        )
+
+        messages.success(request, "A verification code has been sent to your email.")
+        return redirect('verify-forgot-password')
+
+
+class VerifyForgotPasswordView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.session.get('forgot_password'):
+            messages.error(request, "Please start password recovery first.")
+            return redirect('forgot-password')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return render(request, 'verify_forgot_password.html')
+
+    def post(self, request):
+        code = request.POST.get('code')
+        data = request.session.get('forgot_password')
+
+        if not data:
+            messages.error(request, "Session expired. Please try again.")
+            return redirect('forgot-password')
+
+        if timezone.now().timestamp() - data['otp_created_at'] > 300:
+            messages.error(request, "Verification code expired.")
+            return redirect('resend-forgot-password-otp')
+
+        if code != data['otp_code']:
+            messages.error(request, "Invalid verification code.")
+            return redirect('verify-forgot-password')
+
+        request.session['forgot_password_verified'] = True
+        messages.success(request, "Code verified. Please set a new password.")
+        return redirect('reset-password')
+
+
+class ResendForgotPasswordOTPView(View):
+    def post(self, request):
+        data = request.session.get('forgot_password')
+        now_ts = timezone.now().timestamp()
+
+        if not data:
+            messages.error(request, "Please start password recovery again.")
+            return redirect('forgot-password')
+
+        if now_ts - data['otp_last_sent'] < 60:
+            messages.warning(request, "You can resend the code after 1 minute.")
+            return redirect('verify-forgot-password')
+
+        new_otp = generate_otp_code()
+
+        data['otp_code'] = new_otp
+        data['otp_created_at'] = now_ts
+        data['otp_last_sent'] = now_ts
+        request.session['forgot_password'] = data
+
+        send_notification_email_task.delay(
+            subject="New password reset code",
+            message=f"Your new code: {new_otp}",
+            to=data['email']
+        )
+
+        messages.success(request, "A new verification code has been sent.")
+        return redirect('verify-forgot-password')
+
+
+class ResetPasswordView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.session.get('forgot_password_verified'):
+            messages.error(request, "Please verify the code first.")
+            return redirect('forgot-password')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return render(request, 'reset_password.html')
+
+    def post(self, request):
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if not password or not confirm_password:
+            messages.error(request, "Please fill in all fields.")
+            return redirect('reset-password')
+
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return redirect('reset-password')
+
+        if len(password) < 8:
+            messages.error(request, "Password must be at least 8 characters.")
+            return redirect('reset-password')
+
+        data = request.session.get('forgot_password')
+        user = User.objects.get(email=data['email'])
+
+        user.set_password(password)
+        user.save()
+
+        del request.session['forgot_password']
+        del request.session['forgot_password_verified']
+
+        messages.success(request, "Your password has been reset successfully.")
+        return redirect('login')

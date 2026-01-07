@@ -1,0 +1,65 @@
+/* ===============================
+   DELETE ACCOUNT
+================================ */
+
+.delete-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.delete-card {
+    max-width: 480px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.delete-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.delete-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.delete-warning {
+    color: #dc2626;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.delete-desc {
+    font-size: 14.5px;
+    color: var(--slate);
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.delete-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Danger button */
+.btn--danger {
+    background: #dc2626;
+    color: #fff;
+}
+
+.btn--danger:hover {
+    background: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.35);
+}

@@ -1,0 +1,254 @@
+/* ==================================================
+   CATEGORY PAGE – OPTIMIZED & CLEAN
+================================================== */
+
+/* ---------- HERO ---------- */
+.category-hero {
+    background: linear-gradient(135deg,
+            rgba(37, 99, 235, 0.15),
+            rgba(245, 158, 11, 0.1));
+    padding: 80px 40px;
+    text-align: center;
+    border-radius: 16px;
+    margin-bottom: 60px;
+}
+
+.category-title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.category-title span {
+    color: #2563eb;
+}
+
+.category-desc {
+    font-size: 18px;
+    color: #6b7280;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ---------- PAGE WRAPPER ---------- */
+.category-page-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 60px;
+}
+
+/* ---------- SECTION ---------- */
+.section {
+    margin-bottom: 80px;
+}
+
+.section-header {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+/* ---------- ARTICLE GRID ---------- */
+.article-grid,
+.article-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* ---------- ARTICLE CARD ---------- */
+.article-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform .35s ease, box-shadow .35s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.article-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 45px rgba(37, 99, 235, .25);
+}
+
+/* ---------- IMAGE ---------- */
+.article-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* ---------- CATEGORY BADGE ---------- */
+.article-category {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    background: #2563eb;
+    border-radius: 999px;
+}
+
+/* ---------- CONTENT ---------- */
+.article-content {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.article-meta-top,
+.article-meta-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.article-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.article-title a {
+    color: #1e3a8a;
+    transition: color .2s ease;
+}
+
+.article-title a:hover {
+    color: #2563eb;
+}
+
+.article-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 18px;
+    flex-grow: 1;
+}
+
+/* ---------- BUTTON ---------- */
+.btn-outline {
+    align-self: flex-start;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 18px;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    transition: all .25s ease;
+}
+
+.btn-outline:hover {
+    background: #2563eb;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ---------- SIDEBAR ---------- */
+.category-sidebar {
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+.sidebar-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+    margin-bottom: 40px;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 20px;
+}
+
+/* ---------- CATEGORY LIST ---------- */
+.category-list {
+    list-style: none;
+}
+
+.category-list li {
+    margin-bottom: 14px;
+}
+
+.category-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #475569;
+    transition: color .2s ease;
+}
+
+.category-list a span {
+    font-weight: 800;
+    color: #2563eb;
+}
+
+.category-list a:hover {
+    color: #2563eb;
+}
+
+/* ---------- TAG CLOUD (NEW DESIGN) ---------- */
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-item {
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #0f172a;
+    cursor: default;
+    transition: all .25s ease;
+}
+
+.tag-item:hover {
+    background: #2563eb;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ---------- POPULAR SECTION ---------- */
+.section.popular {
+    background: #f0f4f8;
+    padding: 80px 40px;
+    border-radius: 16px;
+}
+
+.article-list .article-card::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: rgba(59, 130, 246, .08);
+    transform: rotate(45deg);
+    transition: inset .5s ease;
+}
+
+.article-list .article-card:hover::before {
+    inset: -20%;
+}

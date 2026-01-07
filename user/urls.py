@@ -12,6 +12,10 @@ from .views import (
     UpdateEmailView,
     VerifyEmailUpdateView,
     ResendEmailUpdateOTPView,
+    ForgotPasswordView,
+    VerifyForgotPasswordView,
+    ResendForgotPasswordOTPView,
+    ResetPasswordView,
     )
 
 
@@ -28,4 +32,28 @@ urlpatterns = [
     path('email-update/', UpdateEmailView.as_view(), name='email-update'),
     path('email-update-verify/', VerifyEmailUpdateView.as_view(), name='verify-email-update'),
     path('email-update-resend/', ResendEmailUpdateOTPView.as_view(), name='resend-email-update-otp'),
+
+    path(
+        'forgot-password/',
+        ForgotPasswordView.as_view(),
+        name='forgot-password'
+    ),
+
+    path(
+        'forgot-password-verify/',
+        VerifyForgotPasswordView.as_view(),
+        name='verify-forgot-password'
+    ),
+
+    path(
+        'forgot-password-resend/',
+        ResendForgotPasswordOTPView.as_view(),
+        name='resend-forgot-password-otp'
+    ),
+
+    path(
+        'forgot-password-reset/',
+        ResetPasswordView.as_view(),
+        name='reset-password'
+    ),
 ]

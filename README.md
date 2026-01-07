@@ -1,2 +1,0 @@
-# iqtisodiybilim.uz
-iqtisodiybilim.uz
