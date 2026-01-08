@@ -37,8 +37,7 @@ class RegisterView(View):
         last_name = request.POST.get('last_name')
         bio = request.POST.get('bio')
         profile_image = request.FILES.get('profile_image')
-        profile_image_path = None
-        email = request.POST.get('email')
+        email = request.POST.get('email').strip().lower()
         password = request.POST.get('password')
         repeat_password = request.POST.get('repeat_password')
 
@@ -57,6 +56,8 @@ class RegisterView(View):
         if User.objects.filter(email=email).exists():
             messages.error(request, "This email is already registered.")
             return redirect('register')
+        
+        profile_image_path = None
         
         if profile_image:
             ext = profile_image.name.split('.')[-1]
@@ -82,7 +83,7 @@ class RegisterView(View):
         }
 
         send_notification_email_task.delay(
-            subject="Email verification code",
+            subject = "Your Email Verification Code",
             message=f"Your verification code: {otp_code}",
             to=email
         )
@@ -127,14 +128,18 @@ class VerifyView(View):
             with default_storage.open(profile_image_path, 'rb') as f:
                 profile_image_file = ContentFile(f.read(), name=os.path.basename(profile_image_path))
 
-        user = User.objects.create_user(
-            email=register_data.get('email'),
-            password=register_data.get('password'),
-            first_name=register_data.get('first_name'),
-            last_name=register_data.get('last_name'),
-            bio=register_data.get('bio'),
-            profile_image=profile_image_file
-        )
+        try:
+            user = User.objects.create_user(
+                email=register_data.get('email'),
+                password=register_data.get('password'),
+                first_name=register_data.get('first_name'),
+                last_name=register_data.get('last_name'),
+                bio=register_data.get('bio'),
+                profile_image=profile_image_file
+            )
+        finally:
+            if profile_image_path:
+                default_storage.delete(profile_image_path)
 
         login(request, user)
 
@@ -208,7 +213,7 @@ class LoginView(View):
         return render(request, 'login.html')
     
     def post(self, request):
-        email = request.POST.get('email')
+        email = request.POST.get('email').strip().lower()
         password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
 
@@ -239,6 +244,7 @@ class LogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         logout(request)
         request.session.flush()
+        messages.success(request, "You have successfully logged out.")
         return redirect('home')
 
 
@@ -286,7 +292,7 @@ class UpdateEmailView(LoginRequiredMixin, View):
         return render(request, 'email_update.html')
 
     def post(self, request):
-        new_email = request.POST.get('email')
+        new_email = request.POST.get('email').strip().lower()
         user = request.user
 
         if not new_email:
@@ -413,7 +419,7 @@ class ForgotPasswordView(View):
         return render(request, 'forgot_password.html')
 
     def post(self, request):
-        email = request.POST.get('email')
+        email = request.POST.get('email').strip().lower()
 
         if not email:
             messages.error(request, "Please enter your email.")
