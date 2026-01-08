@@ -65,4 +65,7 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
-admin.site.register(Agent)
+@admin.register(Agent)
+class AgentAdmin(admin.ModelAdmin):
+    search_fields = ('full_name', 'job')
+    list_display = ('id', 'full_name', 'job')

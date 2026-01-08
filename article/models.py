@@ -63,7 +63,8 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.email} --> {self.article.title}"
+        user_email = self.user.email if self.user else "Deleted User"
+        return f"{user_email} --> {self.article.title}"
 
     class Meta:
         verbose_name = 'Comment'
