@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block title %}Explore Articles | iqtisodiybilim.uz{% endblock %}
@@ -12,41 +11,60 @@
 
 <div class="articles-page-wrapper">
 
+    <!-- ===================== DJANGO MESSAGES ================= -->
+    {% if messages %}
+    <div class="articles-messages">
+        {% for message in messages %}
+        <div class="msg msg-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ===================== MAIN FEED ===================== -->
     <main class="articles-feed">
         <header class="feed-header">
             <h1 class="page-title">Financial <span>Library</span></h1>
             <p class="results-count">Showing all expert publications</p>
+            <!-- ===== SEARCH FORM ===== -->
+            <form method="GET" class="search-form">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Search articles..." 
+                    value="{{ request.GET.q|default_if_none:'' }}">
+                <button type="submit">🔍</button>
+            </form>
         </header>
 
         <div class="articles-stack">
             {% for article in articles %}
             <article class="feed-card">
                 <div class="card-img">
-                    <img src="{{ article.image.url }}"
-                        alt="Market">
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
                     <span class="category-pill">{{ article.category.name }}</span>
                 </div>
                 <div class="card-details">
                     <div class="card-meta-top">
-                        <span class="read-time">⏱ {{ article.reading_time }} min read</span>
-                        <span class="rating">⭐ {{ article.average_rate }}</span>
+                        <span>⏱ {{ article.reading_time }} min read</span>
+                        <span>⭐ {{ article.average_rate }}</span>
                     </div>
                     <h2 class="card-title">
                         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
                     </h2>
-                    <p class="card-excerpt">{{ article.description }}</p>
+                    <p class="card-excerpt">{{ article.description|truncatewords:30 }}</p>
                     <div class="card-footer">
-                        <div class="author">
-                            <span class="author-name">{{ article.author.get_full_name }}</span>
-                        </div>
-                        <span class="views-count">👁 {{ article.views }} views</span>
+                        <span class="author-name">{{ article.author.get_full_name }}</span>
+                        <span class="views-count">👁 {{ article.views }}</span>
                     </div>
                 </div>
             </article>
+            {% empty %}
+            <p>No articles found.</p>
             {% endfor %}
         </div>
     </main>
 
+    <!-- ===================== SIDEBAR ===================== -->
     <aside class="articles-sidebar">
 
         <div class="sidebar-widget">

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block title %}{{ article.title }} | {{ article.category.name }}{% endblock %}
@@ -11,6 +10,17 @@
 {% block content %}
 
 <main class="article-page">
+
+    <!-- ================= DJANGO MESSAGES ================= -->
+    {% if messages %}
+    <div class="article-messages">
+        {% for message in messages %}
+        <div class="msg msg-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- =======================
         ARTICLE HEADER
@@ -56,7 +66,7 @@
     </header>
 
     <!-- =======================
-        MAIN IMAGE
+        HERO IMAGE
     ======================= -->
     {% if article.image %}
     <section class="article-hero-image">

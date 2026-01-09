@@ -10,6 +10,18 @@
 
 {% block content %}
 
+<!-- ================= DJANGO MESSAGES ================= -->
+{% if messages %}
+<div class="about-messages">
+    {% for message in messages %}
+        <div class="msg msg-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ================= HERO ================= -->
 <section class="about-hero">
     <div class="about-hero-container">
         <h1 class="about-title">About iqtisodiybilim.uz</h1>
@@ -19,21 +31,23 @@
     </div>
 </section>
 
+<!-- ================= OUR STORY ================= -->
 <section class="section our-story">
     <div class="section-header">
         <h2 class="section-title">Our Story</h2>
     </div>
     <div class="story-content">
         <p>
-            Founded in 2026, iqtisodiybilim.uz was created to provide high-quality, insightful content about economics, finance, and business in Uzbek language.
-            We believe that understanding economic concepts empowers individuals to make smarter decisions in life and work.
+            Founded in 2026, <strong>iqtisodiybilim.uz</strong> provides high-quality, insightful content about economics, finance, and business in Uzbek language.
+            Understanding economics empowers individuals to make smarter decisions.
         </p>
         <p>
-            Our team of experts carefully researches and explains topics in a clear and approachable way, making learning enjoyable and accessible.
+            Our team of experts carefully researches and explains topics clearly and engagingly, making learning enjoyable and accessible for everyone.
         </p>
     </div>
 </section>
 
+<!-- ================= TEAM ================= -->
 <section class="section our-team">
     <div class="section-header">
         <h2 class="section-title">Meet Our Team</h2>
@@ -41,7 +55,7 @@
     <div class="team-grid">
         {% for a in agents %}
         <div class="team-member">
-            <img src="{{  a.image.url }}" alt="{{ a.full_name }}">
+            <img src="{{ a.image.url }}" alt="{{ a.full_name }}">
             <h3>{{ a.full_name }}</h3>
             <p>{{ a.job }}</p>
         </div>
@@ -49,6 +63,7 @@
     </div>
 </section>
 
+<!-- ================= MISSION ================= -->
 <section class="section our-mission">
     <div class="section-header">
         <h2 class="section-title">Our Mission</h2>
