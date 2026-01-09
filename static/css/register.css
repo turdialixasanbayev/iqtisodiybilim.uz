@@ -268,3 +268,39 @@
         font-size: 28px;
     }
 }
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 42px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.6;
+    user-select: none;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+/* --- Name row --- */
+.name-row {
+    display: flex;
+    gap: 10px; /* first & last name orasidagi bo'sh joy */
+}
+
+.name-row input {
+    flex: 1; /* ikkala input teng kenglikda bo'ladi */
+    min-width: 0; /* overflow oldini oladi */
+}
+

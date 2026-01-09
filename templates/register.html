@@ -48,8 +48,16 @@
             </label>
 
             <!-- Passwords -->
-            <input type="password" name="password" placeholder="Password">
-            <input type="password" name="repeat_password" placeholder="Repeat password">
+            <div class="password-field">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <span class="toggle-password" data-target="password">👁️</span>
+            </div>
+
+            <div class="password-field">
+                <input type="password" name="repeat_password" id="repeat_password" placeholder="Repeat password">
+                <span class="toggle-password" data-target="repeat_password">👁️</span>
+            </div>
+
 
             <!-- Remember me -->
             <div class="form-row remember-me-row">
@@ -82,6 +90,34 @@
             }, 3000);
         });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // show / hide password
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+
+                if (!input) return;
+
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                this.textContent = isPassword ? '🙈' : '👁️';
+            });
+        });
+
+        // auto-hide messages
+        const messages = document.querySelectorAll('.message');
+        messages.forEach(msg => {
+            setTimeout(() => {
+                msg.style.transition = 'all 0.5s ease';
+                msg.style.opacity = '0';
+                msg.style.transform = 'translateY(-10px)';
+                setTimeout(() => msg.remove(), 500);
+            }, 3000);
+        });
+    });
+
 </script>
 
 {% endblock %}

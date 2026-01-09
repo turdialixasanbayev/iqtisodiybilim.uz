@@ -43,9 +43,12 @@ class ArticleDetailPage(View):
 class ArticleListPage(View):
     def get(self, request):
         query = request.GET.get('q', '')
+        tag = request.GET.get('tag', '')
         articles = Article.objects.order_by('-created_at').select_related('category', 'author').prefetch_related('tags')
         if query:
             articles = Article.objects.filter(title__icontains=query).order_by('-created_at').select_related('category', 'author').prefetch_related('tags')
+        if tag:
+            articles = Article.objects.filter(tags__slug__exact=tag).order_by('-created_at').select_related('category', 'author').prefetch_related('tags')
         return render(request, 'articles.html', context={'articles': articles})
 
 class HomePage(View):

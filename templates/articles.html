@@ -80,7 +80,7 @@
             <h3 class="widget-title">Popular Tags</h3>
             <div class="tags-cloud">
                 {% for tag in tags %}
-                <a href="#" class="tag-item">#{{ tag.name }}</a>
+                <a href="?tag={{ tag.slug }}" class="tag-item">#{{ tag.name }}</a>
                 {% endfor %}
             </div>
         </div>

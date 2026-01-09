@@ -231,3 +231,28 @@
         gap: 10px;
     }
 }
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 42px;
+    /* icon uchun joy */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.6;
+    user-select: none;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}

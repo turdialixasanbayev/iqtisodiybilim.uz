@@ -11,7 +11,7 @@
 
 <section class="auth-wrapper">
     <div class="auth-card">
-        
+
         <!-- Messages -->
         {% if messages %}
         <div class="messages">
@@ -31,7 +31,10 @@
 
             <!-- Email & Password -->
             <input type="email" name="email" placeholder="Email address">
-            <input type="password" name="password" placeholder="Password">
+            <div class="password-field">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <span class="toggle-password" id="togglePassword">👁️</span>
+            </div>
 
             <!-- Remember Me + Forgot Password -->
             <div class="form-row remember-me-row">
@@ -54,17 +57,40 @@
 
 <!-- Optional: Auto-hide messages after 3 seconds -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const messages = document.querySelectorAll('.message');
-    messages.forEach(msg => {
-        setTimeout(() => {
-            msg.style.transition = 'all 0.5s ease';
-            msg.style.opacity = '0';
-            msg.style.transform = 'translateY(-10px)';
-            setTimeout(() => msg.remove(), 500);
-        }, 3000);
+    document.addEventListener('DOMContentLoaded', function () {
+        const messages = document.querySelectorAll('.message');
+        messages.forEach(msg => {
+            setTimeout(() => {
+                msg.style.transition = 'all 0.5s ease';
+                msg.style.opacity = '0';
+                msg.style.transform = 'translateY(-10px)';
+                setTimeout(() => msg.remove(), 500);
+            }, 3000);
+        });
     });
-});
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+
+        togglePassword.addEventListener('click', function () {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePassword.textContent = isPassword ? '🙈' : '👁️';
+        });
+
+        // existing auto-hide messages
+        const messages = document.querySelectorAll('.message');
+        messages.forEach(msg => {
+            setTimeout(() => {
+                msg.style.transition = 'all 0.5s ease';
+                msg.style.opacity = '0';
+                msg.style.transform = 'translateY(-10px)';
+                setTimeout(() => msg.remove(), 500);
+            }, 3000);
+        });
+    });
+
 </script>
 
 {% endblock %}

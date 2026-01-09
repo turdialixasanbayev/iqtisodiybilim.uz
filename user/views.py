@@ -94,7 +94,7 @@ class RegisterView(View):
 
 class VerifyView(View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('register_data'):
+        if 'register_data' not in request.session:
             messages.error(request, "You need to register first before verifying your email.")
             return redirect('register')
         return super().dispatch(request, *args, **kwargs)
@@ -115,9 +115,22 @@ class VerifyView(View):
 
         if timezone.now().timestamp() - otp_created_at > 300:
             messages.error(request, "This verification code has expired. Please request a new one.")
-            return redirect('resend_otp')
+            return redirect('verify')
 
         if code != otp_code:
+            attempts = register_data.get('otp_attempts', 0)
+
+            if attempts >= 5:
+                messages.error(
+                    request,
+                    "Too many incorrect attempts. Please resend the verification code."
+                )
+                return redirect('verify')
+            
+            register_data['otp_attempts'] = attempts + 1
+            request.session['register_data'] = register_data
+            request.session.modified = True
+
             messages.error(request, "Invalid verification code. Please try again.")
             return redirect('verify')
         
@@ -158,14 +171,14 @@ class VerifyView(View):
 
         messages.success(request, "Your email has been successfully verified! Welcome 🎉")
 
-        del request.session['register_data']
+        request.session.pop('register_data', None)
 
         return redirect('dashboard')
 
 
 class ResendOTPView(View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('register_data'):
+        if 'register_data' not in request.session:
             messages.error(request, "You need to register first before requesting a new code.")
             return redirect('register')
         return super().dispatch(request, *args, **kwargs)
@@ -190,6 +203,7 @@ class ResendOTPView(View):
         register_data['otp_created_at'] = timezone.now().timestamp()
         register_data['otp_last_sent'] = timezone.now().timestamp()
         request.session['register_data'] = register_data
+        request.session.modified = True
 
         send_notification_email_task.delay(
             subject="Your new verification code",
@@ -331,7 +345,7 @@ class UpdateEmailView(LoginRequiredMixin, View):
 
 class VerifyEmailUpdateView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('email_update_data'):
+        if 'email_update_data' not in request.session:
             messages.error(request, "No email change request found.")
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
@@ -374,7 +388,7 @@ class VerifyEmailUpdateView(LoginRequiredMixin, View):
             to=old_email
         )
 
-        del request.session['email_update_data']
+        request.session.pop('email_update_data', None)
 
         messages.success(request, "Your email has been successfully updated.")
         return redirect('dashboard')
@@ -402,6 +416,7 @@ class ResendEmailUpdateOTPView(LoginRequiredMixin, View):
         data['otp_last_sent'] = now_ts
 
         request.session['email_update_data'] = data
+        request.session.modified = True
 
         send_notification_email_task.delay(
             subject="Confirm your new email",
@@ -453,7 +468,7 @@ class ForgotPasswordView(View):
 
 class VerifyForgotPasswordView(View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('forgot_password'):
+        if 'forgot_password' not in request.session:
             messages.error(request, "Please start password recovery first.")
             return redirect('forgot-password')
         return super().dispatch(request, *args, **kwargs)
@@ -501,6 +516,7 @@ class ResendForgotPasswordOTPView(View):
         data['otp_created_at'] = now_ts
         data['otp_last_sent'] = now_ts
         request.session['forgot_password'] = data
+        request.session.modified = True
 
         send_notification_email_task.delay(
             subject="New password reset code",
@@ -514,7 +530,7 @@ class ResendForgotPasswordOTPView(View):
 
 class ResetPasswordView(View):
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get('forgot_password_verified'):
+        if 'forgot_password_verified' not in request.session:
             messages.error(request, "Please verify the code first.")
             return redirect('forgot-password')
         return super().dispatch(request, *args, **kwargs)
@@ -544,8 +560,8 @@ class ResetPasswordView(View):
         user.set_password(password)
         user.save()
 
-        del request.session['forgot_password']
-        del request.session['forgot_password_verified']
+        request.session.pop('forgot_password', None)
+        request.session.pop('forgot_password_verified', None)
 
         messages.success(request, "Your password has been reset successfully.")
         return redirect('login')
