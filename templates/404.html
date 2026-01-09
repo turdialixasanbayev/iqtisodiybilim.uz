@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-
 {% load static %}
 
-{% block title %}404 | iqtisodiybilim.uz{% endblock %}
+{% block title %}404 — Page Not Found | iqtisodiybilim.uz{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/404.css' %}">
@@ -10,20 +9,24 @@
 
 {% block content %}
 
-<section class="error-404">
+<section class="error-wrapper">
 
-    <h1>404</h1>
-    
-    <h2>Page Not Found</h2>
+    <div class="error-card">
 
-    <p>
-        The page you're looking for doesn't exist or may have been moved.
-        Please return to the homepage or use the navigation menu to continue.
-    </p>
+        <span class="error-code">404</span>
 
-    <div class="error-actions">
-        <a href="/" class="btn-large">Go Home</a>
-        <a href="/articles/" class="btn-outline">Browse Articles</a>
+        <h1>Page not found</h1>
+
+        <p>
+            Sorry, the page you are looking for doesn’t exist, was removed,
+            or is temporarily unavailable.
+        </p>
+
+        <div class="error-actions">
+            <a href="/" class="btn-primary">Go Home</a>
+            <a href="/articles/" class="btn-secondary">Browse Articles</a>
+        </div>
+
     </div>
 
 </section>

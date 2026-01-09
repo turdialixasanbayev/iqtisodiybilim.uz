@@ -14,13 +14,12 @@
     --bg-footer: #020617;
 
     --radius: 12px;
-    --ease: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, .05),
-        0 2px 4px -2px rgba(0, 0, 0, .05);
+    --ease: all .3s cubic-bezier(.4, 0, .2, 1);
+    --shadow: 0 10px 20px rgba(0, 0, 0, .06);
 }
 
 /* ===============================
-   RESET & BASE
+   RESET
 ================================ */
 *,
 *::before,
@@ -31,11 +30,10 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
     background: var(--bg-page);
     color: var(--dark);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -49,40 +47,39 @@ ul {
 }
 
 /* ===============================
-   HEADER & NAV
+   HEADER
 ================================ */
 .header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    height: 72px;
-    background: rgba(255, 255, 255, .8);
+    background: rgba(255, 255, 255, .85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
 }
 
 .nav-wrapper {
     max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 24px;
+    margin: auto;
+    padding: 16px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .brand {
     font-size: 22px;
     font-weight: 800;
-    letter-spacing: -0.04em;
 }
 
 .brand span {
     color: var(--primary);
 }
 
+/* ===============================
+   NAV
+================================ */
 .nav-list {
     display: flex;
     gap: 32px;
@@ -111,12 +108,8 @@ ul {
     font-size: 14px;
     font-weight: 600;
     border-radius: 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     border: 1px solid transparent;
-    transition: var(--ease);
+    cursor: pointer;
 }
 
 .btn--primary {
@@ -126,24 +119,37 @@ ul {
 
 .btn--primary:hover {
     background: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, .3);
 }
 
 .btn--ghost {
-    background: transparent;
     border-color: var(--border);
-    color: var(--dark);
+    background: transparent;
 }
 
 .btn--ghost:hover {
     background: var(--primary-soft);
-    border-color: var(--primary);
     color: var(--primary);
 }
 
 /* ===============================
-   MAIN CONTENT
+   MOBILE TOGGLE
+================================ */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+}
+
+/* ===============================
+   MAIN
 ================================ */
 .content-area {
     min-height: 80vh;
@@ -152,7 +158,7 @@ ul {
 
 .main-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     padding: 0 24px;
 }
 
@@ -161,16 +167,14 @@ ul {
 ================================ */
 .footer {
     background: var(--bg-footer);
-    color: #94a3b8;
-    padding: 60px 0 40px;
-    border-top: 1px solid rgba(255, 255, 255, .05);
+    padding: 50px 0;
+    text-align: center;
 }
 
 .footer-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     padding: 0 24px;
-    text-align: center;
 }
 
 .footer-container::before {
@@ -179,20 +183,60 @@ ul {
     width: 40px;
     height: 2px;
     background: var(--primary);
-    margin: 0 auto 24px;
+    margin: 0 auto 20px;
 }
 
 .copyright {
     font-size: 14px;
-    letter-spacing: .02em;
+    color: #94a3b8;
 }
 
 .copyright strong {
     color: #f8fafc;
-    font-weight: 700;
 }
 
 .copyright span {
     color: var(--primary);
-    font-weight: 600;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-wrapper {
+        flex-wrap: wrap;
+    }
+
+    .nav-list {
+        width: 100%;
+        flex-direction: column;
+        display: none;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+    .auth-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .content-area {
+        padding: 40px 0;
+    }
 }

@@ -1,41 +1,74 @@
 /* ===============================
-   404 PAGE
+   404 PAGE – PREMIUM DESIGN
 ================================ */
-.error-404 {
-    min-height: 100vh;
-    padding: 160px 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 
-    background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+.error-wrapper {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+
+    background:
+        radial-gradient(circle at top left, #dbeafe, transparent 40%),
+        radial-gradient(circle at bottom right, #fde68a, transparent 45%),
+        #ffffff;
 }
 
 /* ===============================
-   TYPOGRAPHY
+   CARD
 ================================ */
-.error-404 h1 {
-    font-size: clamp(96px, 15vw, 140px);
+.error-card {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    padding: 70px 50px;
+
+    background: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(14px);
+    border-radius: 28px;
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 40px 80px -20px rgba(0, 0, 0, .15);
+
+    animation: fadeUp .8s ease both;
+}
+
+/* ===============================
+   ERROR CODE
+================================ */
+.error-code {
+    font-size: clamp(110px, 20vw, 160px);
     font-weight: 900;
     line-height: 1;
-    margin: 0;
-    color: var(--primary, #2563eb);
+    letter-spacing: -0.04em;
+
+    background: linear-gradient(135deg,
+            var(--primary),
+            #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    display: block;
+    margin-bottom: 10px;
 }
 
-.error-404 h2 {
-    font-size: clamp(26px, 4vw, 36px);
-    margin: 16px 0;
-    font-weight: 700;
-    color: #1e40af;
+/* ===============================
+   TEXT
+================================ */
+.error-card h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--dark);
 }
 
-.error-404 p {
-    max-width: 560px;
+.error-card p {
+    font-size: 17px;
+    color: var(--slate);
+    line-height: 1.7;
     margin-bottom: 40px;
-    font-size: 18px;
-    color: #475569;
 }
 
 /* ===============================
@@ -43,40 +76,74 @@
 ================================ */
 .error-actions {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
     justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .error-actions a {
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: var(--ease, all 0.3s ease);
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 14px;
+    transition: var(--ease);
 }
 
-/* Primary button */
-.error-actions .btn-large {
+/* Primary */
+.btn-primary {
+    background: var(--primary);
     color: #fff;
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
 }
 
-.error-actions .btn-large:hover {
-    background: linear-gradient(135deg, #1e40af, #2563eb);
+.btn-primary:hover {
+    background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(37, 99, 235, .35);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, .35);
 }
 
-/* Outline button */
-.error-actions .btn-outline {
-    background: transparent;
-    border: 2px solid #2563eb;
-    color: #2563eb;
+/* Secondary */
+.btn-secondary {
+    border: 2px solid var(--border);
+    color: var(--dark);
+    background: #fff;
 }
 
-.error-actions .btn-outline:hover {
-    background: #2563eb;
-    color: #fff;
+.btn-secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-soft);
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(37, 99, 235, .25);
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+    .error-card {
+        padding: 50px 30px;
+        border-radius: 22px;
+    }
+
+    .error-card h1 {
+        font-size: 26px;
+    }
+
+    .error-card p {
+        font-size: 16px;
+    }
 }
