@@ -7,7 +7,6 @@
 ----------------------------------------------- */
 .auth-wrapper {
     min-height: calc(100vh - 120px);
-    /* base header/footer bilan mos */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +40,10 @@
     inset: 0;
     background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%);
     z-index: 0;
+    pointer-events: none;
+    /* Shu qo'shildi */
 }
+
 
 .auth-card:hover {
     transform: translateY(-6px);
@@ -49,14 +51,13 @@
 }
 
 /* -----------------------------------------------
-   3. Headings & Subtitle
+   3. Heading & Subtitle
 ----------------------------------------------- */
 .auth-card h1 {
     font-size: 32px;
     font-weight: 900;
     color: #1e3a8a;
     margin-bottom: 12px;
-    position: relative;
     z-index: 1;
 }
 
@@ -84,6 +85,8 @@
     font-size: 14px;
     font-weight: 600;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, opacity 0.3s;
 }
 
 /* Message types */
@@ -105,6 +108,10 @@
     border: 1px solid #3b82f6;
 }
 
+.message:hover {
+    transform: translateY(-3px);
+}
+
 /* -----------------------------------------------
    5. Form Inputs
 ----------------------------------------------- */
@@ -112,7 +119,6 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    position: relative;
     z-index: 1;
 }
 
@@ -124,8 +130,8 @@
     font-size: 14px;
     color: #0f172a;
     outline: none;
-    transition: all 0.3s ease;
     background: #ffffff;
+    transition: all 0.3s ease;
 }
 
 .auth-card input:focus {
@@ -190,7 +196,6 @@
     font-size: 13px;
     margin-top: 28px;
     color: #475569;
-    position: relative;
     z-index: 1;
 }
 
@@ -204,4 +209,25 @@
 .auth-footer a:hover {
     color: #1e40af;
     text-decoration: underline;
+}
+
+/* -----------------------------------------------
+   9. Responsive
+----------------------------------------------- */
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 40px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+    }
+
+    .form-row.remember-me-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }

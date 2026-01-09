@@ -1,6 +1,6 @@
-/* ================================
-   REGISTER PAGE — OPTIMIZED
-================================ */
+/* ===============================
+   REGISTER PAGE – LUXURY DESIGN
+=============================== */
 
 /* Wrapper / Background */
 .auth-wrapper {
@@ -13,13 +13,27 @@
         radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.08), transparent 40%),
         #f8fafc;
     padding: 40px 20px;
+    animation: fadeIn 0.6s ease-out;
 }
 
-/* Card */
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================== CARD ===================== */
 .auth-card {
     background: linear-gradient(145deg, #ffffff, #e0e7ff);
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.2);
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.25);
     padding: 60px 50px;
     max-width: 480px;
     width: 100%;
@@ -33,7 +47,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%);
+    background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 70%);
     z-index: 0;
 }
 
@@ -42,9 +56,9 @@
     box-shadow: 0 25px 60px rgba(37, 99, 235, 0.35);
 }
 
-/* Heading */
+/* ===================== HEADING ===================== */
 .auth-card h1 {
-    font-size: 32px;
+    font-size: clamp(28px, 6vw, 36px);
     font-weight: 900;
     color: #1e3a8a;
     margin-bottom: 12px;
@@ -60,44 +74,70 @@
     z-index: 1;
 }
 
-/* Messages */
+/* ===================== MESSAGES ===================== */
 .messages {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     position: relative;
     z-index: 1;
 }
 
 .message {
-    padding: 12px 16px;
-    border-radius: 12px;
+    padding: 14px 18px;
+    border-radius: 14px;
     font-size: 14px;
     font-weight: 600;
     text-align: left;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent;
+    opacity: 0;
+    animation: slideFadeIn 0.5s forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.message.error {
-    background: #fee2e2;
-    color: #b91c1c;
-    border: 1px solid #fca5a5;
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .message.success {
     background: #d1fae5;
     color: #065f46;
-    border: 1px solid #6ee7b7;
+    border-left-color: #10b981;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left-color: #ef4444;
 }
 
 .message.info {
     background: #dbeafe;
-    color: #1e40af;
-    border: 1px solid #93c5fd;
+    color: #1e3a8a;
+    border-left-color: #3b82f6;
 }
 
-/* Form */
+.message.warning {
+    background: #fef3c7;
+    color: #78350f;
+    border-left-color: #f59e0b;
+}
+
+.message:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* ===================== FORM ===================== */
 .auth-card form {
     display: flex;
     flex-direction: column;
@@ -111,7 +151,7 @@
 .auth-card input[type="password"],
 .auth-card textarea {
     padding: 14px 18px;
-    border-radius: 12px;
+    border-radius: 14px;
     border: 1px solid #cbd5e1;
     font-size: 14px;
     color: #0f172a;
@@ -124,10 +164,10 @@
 .auth-card input:focus,
 .auth-card textarea:focus {
     border-color: #2563eb;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.25);
 }
 
-/* File upload */
+/* ===================== FILE UPLOAD ===================== */
 .file-upload {
     display: inline-block;
     padding: 12px 18px;
@@ -138,6 +178,7 @@
     color: #2563eb;
     transition: all 0.3s ease;
     position: relative;
+    text-align: center;
 }
 
 .file-upload input[type="file"] {
@@ -146,10 +187,11 @@
 
 .file-upload:hover {
     background: #2563eb;
-    color: white;
+    color: #fff;
+    border-color: #22c55e;
 }
 
-/* Remember me */
+/* ===================== REMEMBER ME ===================== */
 .form-row.remember-me-row {
     display: flex;
     justify-content: flex-start;
@@ -163,16 +205,17 @@
     margin-right: 6px;
 }
 
-/* Name row */
+/* ===================== NAME ROW ===================== */
 .name-row {
     display: flex;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
-/* Button */
+/* ===================== BUTTON ===================== */
 .btn-primary {
     padding: 14px 0;
-    border-radius: 12px;
+    border-radius: 14px;
     background: linear-gradient(135deg, #2563eb, #22c55e);
     color: #ffffff;
     font-weight: 700;
@@ -180,16 +223,16 @@
     border: none;
     cursor: pointer;
     transition: all 0.35s ease;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.45);
     background: linear-gradient(135deg, #22c55e, #2563eb);
 }
 
-/* Footer text */
+/* ===================== FOOTER TEXT ===================== */
 .auth-footer {
     font-size: 13px;
     margin-top: 28px;
@@ -208,4 +251,20 @@
 .auth-footer a:hover {
     color: #1e40af;
     text-decoration: underline;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 500px) {
+    .auth-card {
+        padding: 40px 30px;
+    }
+
+    .name-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .auth-card h1 {
+        font-size: 28px;
+    }
 }

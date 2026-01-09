@@ -1,6 +1,4 @@
-/* ================================================
-   1. GLOBAL PROFILE LAYOUT & ANIMATIONS
-================================================ */
+/* ===================== GLOBAL ANIMATION ===================== */
 @keyframes profileEntrance {
     from {
         opacity: 0;
@@ -17,16 +15,14 @@
     display: grid;
     grid-template-columns: 320px 1fr;
     min-height: calc(100vh - 80px);
-    /* Header balandligiga qarab */
-    background: #fdfdfe;
+    background: #f8fafc;
     animation: profileEntrance 0.6s ease-out;
+    gap: 0;
 }
 
-/* ================================================
-   2. SIDEBAR (Cyber-Dark Aesthetic)
-================================================ */
+/* ===================== SIDEBAR ===================== */
 .profile-sidebar {
-    background: #020617;
+    background: #0f172a;
     padding: 48px 28px;
     color: #f8fafc;
     border-right: 1px solid rgba(255, 255, 255, 0.05);
@@ -36,7 +32,6 @@
     overflow: hidden;
 }
 
-/* Fon effekti */
 .profile-sidebar::before {
     content: "";
     position: absolute;
@@ -44,11 +39,11 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.08), transparent 50%);
     pointer-events: none;
 }
 
-/* USER BOX */
+/* ===================== USER BOX ===================== */
 .user-box {
     position: relative;
     z-index: 1;
@@ -61,33 +56,31 @@
     height: 120px;
     object-fit: cover;
     border-radius: 32px;
-    /* Modern squircle shakli */
     padding: 4px;
     background: linear-gradient(135deg, #2563eb, #22c55e);
     box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
     margin-bottom: 20px;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .user-box:hover img {
-    transform: scale(1.05) rotate(3deg);
+    transform: scale(1.08) rotate(3deg);
 }
 
 .user-box h3 {
     font-size: 22px;
     font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
     color: #fff;
+    margin-bottom: 6px;
 }
 
 .user-box p {
     font-size: 14px;
-    color: #64748b;
+    color: #94a3b8;
     font-weight: 500;
 }
 
-/* STATUS TAG */
+/* STATUS */
 .status {
     display: inline-flex;
     align-items: center;
@@ -97,18 +90,21 @@
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .status.active {
-    background: rgba(34, 197, 94, 0.1);
-    color: #4ade80;
-    box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
 }
 
-/* ================================================
-   3. SIDEBAR MENU (Interactive Glow)
-================================================ */
+.status.inactive {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+/* ===================== SIDEBAR MENU ===================== */
 .profile-menu {
     display: flex;
     flex-direction: column;
@@ -130,49 +126,45 @@
 
 .menu-link:hover {
     color: #fff;
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(8px);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(6px);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
 }
 
 .menu-link.danger {
-    margin-top: 20px;
     color: #f87171;
-    background: rgba(239, 68, 68, 0.05);
+    background: rgba(239, 68, 68, 0.08);
 }
 
 .menu-link.danger:hover {
     background: #ef4444;
     color: #fff;
+    transform: translateX(6px) scale(1.02);
 }
 
 .menu-link.logout {
     background: #2563eb;
     color: #fff;
-    margin-top: 10px;
     justify-content: center;
     box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
 }
 
 .menu-link.logout:hover {
     background: #1d4ed8;
-    box-shadow: 0 15px 25px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.4);
 }
 
-/* ================================================
-   4. MAIN CONTENT (Luxury Workspace)
-================================================ */
+/* ===================== MAIN CONTENT ===================== */
 .profile-content {
-    padding: 80px 100px;
+    padding: 60px 80px;
     background: #f8fafc;
-    position: relative;
 }
 
 .profile-content h1 {
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 900;
-    letter-spacing: -2px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     color: #0f172a;
     display: flex;
     align-items: center;
@@ -186,7 +178,7 @@
     background: linear-gradient(90deg, #e2e8f0, transparent);
 }
 
-/* INFO GRID */
+/* ===================== INFO GRID ===================== */
 .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -195,19 +187,16 @@
 
 .info-card {
     background: #fff;
-    padding: 35px;
-    border-radius: 28px;
+    padding: 30px;
+    border-radius: 20px;
     border: 1px solid #f1f5f9;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .info-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.08);
     border-color: #2563eb;
 }
 
@@ -224,10 +213,8 @@
     font-size: 18px;
     font-weight: 700;
     color: #1e293b;
-    word-break: break-all;
 }
 
-/* Bio karta uchun maxsus (to'liq kenglik) */
 .info-card:nth-child(4) {
     grid-column: span 2;
     min-height: 150px;
@@ -236,63 +223,91 @@
 .info-card:nth-child(4) p {
     color: #64748b;
     font-weight: 500;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
-/* ===============================
-   Django Messages
-=============================== */
+/* ===================== DJANGO MESSAGES ===================== */
 .messages {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    text-align: left;
-    position: relative;
-    z-index: 1;
 }
 
 .message {
-    padding: 12px 16px;
-    border-radius: 12px;
+    padding: 14px 20px;
+    border-radius: 14px;
     font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     border-left: 4px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease, transform 0.35s ease;
+    opacity: 0;
+    animation: slideFadeIn 0.5s forwards;
 }
 
-/* Xabar turlari */
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .message.success {
-    background-color: #d1fae5;
-    /* yashil ton */
+    background: #d1fae5;
     color: #065f46;
     border-left-color: #10b981;
 }
 
 .message.error {
-    background-color: #fee2e2;
-    /* qizil ton */
+    background: #fee2e2;
     color: #991b1b;
     border-left-color: #ef4444;
 }
 
 .message.warning {
-    background-color: #fef3c7;
-    /* sariq ton */
+    background: #fef3c7;
     color: #78350f;
     border-left-color: #f59e0b;
 }
 
 .message.info {
-    background-color: #dbeafe;
-    /* ko‘k ton */
+    background: #dbeafe;
     color: #1e3a8a;
     border-left-color: #3b82f6;
 }
 
-/* Hover effekti */
 .message:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+    .profile-layout {
+        grid-template-columns: 280px 1fr;
+    }
+
+    .profile-content {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-content {
+        padding: 40px 20px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }

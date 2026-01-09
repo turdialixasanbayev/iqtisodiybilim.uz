@@ -1,50 +1,117 @@
 /* ===============================
-   DELETE ACCOUNT
+   DELETE ACCOUNT — MODERN DESIGN
 ================================ */
 
+/* 1. Wrapper */
 .delete-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 60vh;
+    min-height: 70vh;
+    padding: 20px;
+    background:
+        radial-gradient(circle at top left, rgba(220, 38, 38, 0.05), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.05), transparent 40%),
+        #f8fafc;
 }
 
+/* 2. Card */
 .delete-card {
     max-width: 480px;
     width: 100%;
     background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px;
+    border-radius: 24px;
+    padding: 40px 30px;
     text-align: center;
-    box-shadow: var(--shadow);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
+.delete-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+}
+
+/* 3. Icon & Titles */
 .delete-icon {
-    font-size: 40px;
+    font-size: 48px;
     margin-bottom: 16px;
+    color: #dc2626;
+    animation: shake 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(-2deg); }
 }
 
 .delete-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
     margin-bottom: 12px;
-    letter-spacing: -0.02em;
+    color: #111827;
 }
 
 .delete-warning {
     color: #dc2626;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 12px;
+    font-size: 15px;
 }
 
 .delete-desc {
     font-size: 14.5px;
-    color: var(--slate);
+    color: #64748b;
     margin-bottom: 28px;
     line-height: 1.6;
 }
 
+/* 4. Messages (Django) */
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.message {
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.message.success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+    border: 1px solid #4ade80;
+}
+
+.message.error {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #b91c1c;
+    border: 1px solid #f87171;
+}
+
+.message.info {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #1e40af;
+    border: 1px solid #3b82f6;
+}
+
+.message:hover {
+    transform: translateY(-2px);
+}
+
+/* 5. Buttons */
 .delete-actions {
     display: flex;
     gap: 12px;
@@ -52,14 +119,54 @@
     flex-wrap: wrap;
 }
 
-/* Danger button */
+.btn {
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    border: none;
+}
+
 .btn--danger {
     background: #dc2626;
     color: #fff;
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.35);
 }
 
 .btn--danger:hover {
     background: #b91c1c;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(220, 38, 38, 0.45);
+}
+
+.btn--ghost {
+    background: #f1f5f9;
+    color: #111827;
+    border: 1px solid #cbd5e1;
+}
+
+.btn--ghost:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.1);
+}
+
+/* 6. Responsive */
+@media (max-width: 768px) {
+    .delete-card {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .delete-card {
+        padding: 25px 15px;
+    }
+
+    .delete-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

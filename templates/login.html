@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block title %}Login | iqtisodiybilim.uz{% endblock %}
@@ -12,6 +11,8 @@
 
 <section class="auth-wrapper">
     <div class="auth-card">
+        
+        <!-- Messages -->
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -19,30 +20,51 @@
             {% endfor %}
         </div>
         {% endif %}
+
+        <!-- Heading -->
         <h1>Welcome Back</h1>
         <p class="auth-subtitle">Login to your account and continue learning economics smartly</p>
 
+        <!-- Login Form -->
         <form method="post">
             {% csrf_token %}
 
+            <!-- Email & Password -->
             <input type="email" name="email" placeholder="Email address">
             <input type="password" name="password" placeholder="Password">
 
+            <!-- Remember Me + Forgot Password -->
             <div class="form-row remember-me-row">
                 <label>
-                    <input type="checkbox" name="remember_me">
-                    Remember me
+                    <input type="checkbox" name="remember_me"> Remember me
                 </label>
                 <a href="{% url 'forgot-password' %}" class="forgot-password">Forgot password?</a>
             </div>
 
+            <!-- Submit Button -->
             <button type="submit" class="btn-primary">Login</button>
         </form>
 
+        <!-- Footer -->
         <p class="auth-footer">
-            Don't have a profile yet? <a href="{% url 'register' %}">Create an account</a>
+            Don't have an account? <a href="{% url 'register' %}">Create one here</a>
         </p>
     </div>
 </section>
+
+<!-- Optional: Auto-hide messages after 3 seconds -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const messages = document.querySelectorAll('.message');
+    messages.forEach(msg => {
+        setTimeout(() => {
+            msg.style.transition = 'all 0.5s ease';
+            msg.style.opacity = '0';
+            msg.style.transform = 'translateY(-10px)';
+            setTimeout(() => msg.remove(), 500);
+        }, 3000);
+    });
+});
+</script>
 
 {% endblock %}
