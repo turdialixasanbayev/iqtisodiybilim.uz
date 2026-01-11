@@ -7,24 +7,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
-SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env.bool('DEBUG')
+SECRET_KEY = '111'
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+# DEBUG = env.bool('DEBUG')
+
+DEBUG = True
+
+# ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
+# CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
-
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_cleanup.apps.CleanupConfig',
-    'django_celery_results',
 
     'user',
     'category',
@@ -53,19 +53,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": env('REDIS_CACHE_URL'),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
-
-CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-CELERY_RESULT_BACKEND = "django-db"
 
 ROOT_URLCONF = 'config.urls'
 
@@ -88,7 +75,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {'default': env.db("DATABASE_URL")}
+# DATABASES = {'default': env.db("DATABASE_URL")}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -122,12 +116,3 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")

@@ -1,0 +1,242 @@
+/* ===============================
+   DESIGN TOKENS
+================================ */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-soft: #eff6ff;
+
+    --dark: #0f172a;
+    --slate: #475569;
+    --border: #e2e8f0;
+
+    --bg-page: #ffffff;
+    --bg-footer: #020617;
+
+    --radius: 12px;
+    --ease: all .3s cubic-bezier(.4, 0, .2, 1);
+    --shadow: 0 10px 20px rgba(0, 0, 0, .06);
+}
+
+/* ===============================
+   RESET
+================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, system-ui, sans-serif;
+    background: var(--bg-page);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--ease);
+}
+
+ul {
+    list-style: none;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.brand span {
+    color: var(--primary);
+}
+
+/* ===============================
+   NAV
+================================ */
+.nav-list {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-item {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--slate);
+}
+
+.nav-item:hover {
+    color: var(--primary);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.btn--primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn--primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn--ghost {
+    border-color: var(--border);
+    background: transparent;
+}
+
+.btn--ghost:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+/* ===============================
+   MOBILE TOGGLE
+================================ */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+}
+
+/* ===============================
+   MAIN
+================================ */
+.content-area {
+    min-height: 80vh;
+    padding: 64px 0;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.footer {
+    background: var(--bg-footer);
+    padding: 50px 0;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+.footer-container::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--primary);
+    margin: 0 auto 20px;
+}
+
+.copyright {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.copyright strong {
+    color: #f8fafc;
+}
+
+.copyright span {
+    color: var(--primary);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-wrapper {
+        flex-wrap: wrap;
+    }
+
+    .nav-list {
+        width: 100%;
+        flex-direction: column;
+        display: none;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+    .auth-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .content-area {
+        padding: 40px 0;
+    }
+}
