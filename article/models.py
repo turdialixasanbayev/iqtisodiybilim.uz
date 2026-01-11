@@ -56,7 +56,9 @@ class Comment(models.Model):
         validators=[
             MinValueValidator(1),
             MaxValueValidator(5),
-        ]
+        ],
+        null=True,
+        blank=True
     )
     comment = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

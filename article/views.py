@@ -4,8 +4,6 @@ from .models import Article, Comment
 from user.models import Agent
 from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.db.models import F
 
 
@@ -28,8 +26,11 @@ class ArticleDetailPage(View):
 
         return render(request, 'article-detail.html', context)
     
-    @method_decorator(login_required)
     def post(self, request, slug):
+        if not request.user.is_authenticated:
+            messages.info(request, "You must log in to post a comment.")
+            return redirect('login')
+
         article = get_object_or_404(Article.objects.prefetch_related('tags').select_related('author', 'category'), slug__exact=slug)
 
         rate = request.POST.get('rate')

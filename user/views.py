@@ -1,18 +1,14 @@
 from django.shortcuts import render, redirect
+
 from django.views import View
-from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+
+from django.contrib.auth import login, logout, authenticate
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.contrib import messages
-from django.urls import reverse_lazy
-from django.views.generic import DeleteView, UpdateView, FormView
+
 from django.contrib.auth import get_user_model
-from .forms import ProfileUpdateForm, PasswordUpdateForm
-import random
-from django.utils import timezone
-
-
-# def generate_otp_code():
-#     return str(random.randint(100000, 999999))
 
 
 User = get_user_model()
@@ -21,7 +17,7 @@ User = get_user_model()
 class RegisterView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            messages.info(request, "You are already logged in!")
+            messages.info(request, "You're already logged in!")
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
 
@@ -64,14 +60,14 @@ class RegisterView(View):
 
         login(request, user)
 
-        messages.success(request, "Registration successful!")
+        messages.success(request, "Registration and login successful! Welcome back.")
         return redirect('dashboard')
 
 
 class LoginView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            messages.info(request, "You are already logged in!")
+            messages.info(request, "You're already logged in!")
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
     
@@ -92,12 +88,8 @@ class LoginView(View):
             return redirect('login')
 
 
-class ProfileView(View):
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.info(request, "You are not log in!")
-            return redirect('login')
-        return super().dispatch(request, *args, **kwargs)
+class ProfileView(LoginRequiredMixin, View):
+    login_url = 'login'
 
     def get(self, request):
         return render(request, 'profile.html')
@@ -105,49 +97,19 @@ class ProfileView(View):
 
 class LogoutView(LoginRequiredMixin, View):
     login_url = 'login'
-    redirect_field_name = None
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         logout(request)
-        request.session.flush()
         messages.success(request, "You have successfully logged out.")
         return redirect('home')
 
 
-class UserDeleteView(LoginRequiredMixin, DeleteView):
-    model = User
-    template_name = 'delete_account.html'
-    success_url = reverse_lazy('home')
-    context_object_name = 'user'
+class DeleteAccountView(LoginRequiredMixin, View):
+    login_url = 'login'
 
-    def get_object(self, queryset=None):
-        return self.request.user
-
-
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    form_class = ProfileUpdateForm
-    template_name = 'profile_update.html'
-    success_url = reverse_lazy('dashboard')
-
-    def get_object(self):
-        return self.request.user
-
-
-class PasswordUpdateView(LoginRequiredMixin, FormView):
-    template_name = "password_update.html"
-    form_class = PasswordUpdateForm
-    success_url = reverse_lazy("dashboard")
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
-
-    def form_valid(self, form):
-        user = self.request.user
-        user.set_password(form.cleaned_data["new_password"])
-        user.save()
-
-        update_session_auth_hash(self.request, user)
-
-        return super().form_valid(form)
+    def get(self, request):
+        user = request.user
+        logout(request)
+        user.delete()
+        messages.success(request, "Your account has been deleted.")
+        return redirect('home')
